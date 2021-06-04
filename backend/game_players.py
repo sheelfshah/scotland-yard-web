@@ -1,5 +1,7 @@
 # a player that plays the game
 
+import json
+
 
 def get_color(role):
     return "#000000"
@@ -39,6 +41,12 @@ class Detective(Player):
         assert role.lower().startswith("det"), "role should be detective"
         Player.__init__(self, role, position)
 
+    def move(self, new_position, transport, mrx):
+        # assumes valid move
+        self.position = new_position
+        self.tokens[transport] -= 1
+        mrx.increase_token(transport)
+
 
 class MrX(Player):
 
@@ -46,18 +54,64 @@ class MrX(Player):
         assert role.lower().startswith("mr"), "role should be MrX"
         Player.__init__(self, role, position)
         self.last_public_position = None
-        self.last_vehicle_used = None
+        self.moves_played = 0
+        self.last_transport_used = None
+        self.reveal_times = [3, 8, 13, 18, 24]
+
+    def increase_token(self, transport):
+        self.tokens[transport] += 1
 
     def check_double(self, transport1, transport2):
         if transport1 in self.tokens.keys() and transport2 in self.tokens.keys():
             if self.tokens["double"] * self.tokens[transport1] *\
                     self.tokens[transport2] > 0:
+                if transport1 == transport2:
+                    return self.tokens[transport2] > 1
                 return True
         return False
+
+    def move(self, new_position, transport):
+        # assumes valid move
+        self.position = new_position
+        self.tokens[transport] -= 1
+        self.last_transport_used = transport
+        self.moves_played += 1
+        if self.moves_played in self.reveal_times:
+            self.last_public_position = self.position
+
+    def move_double(self, next_p, next_to_next_p, transport1, transport2):
+        # assumes valid double
+        self.move(next_p, transport1)
+        self.move(next_to_next_p, transport2)
+        self.tokens["double"] -= 1
+        self.last_transport_used = "double: " + transport1 + ", " + transport2
+
+
+def check_validity(player, position1, position2, transport, stations_dict):
+    if player.check_token(transport):
+        try:
+            if position2 in stations_dict[str(position1)][transport]:
+                return True
+        except:
+            return False
+    return False
+
+
+def check_double_validity(player, p1, p2, p3, t1, t2, stations_dict):
+    if player.check_double(t1, t2):
+        return check_validity(p1, p2, t1, stations_dict) and check_validity(p2, p3, t2, stations_dict)
+    return False
 
 
 if __name__ == '__main__':
     # testing
-    det = Detective("det0", 88)
-    print(det.tokens)
-    print(det.check_token("bus"))
+    mrx = MrX("mrx", 88)
+    det = Detective("det0", 187)
+    with open("assets/stations.json", "r") as f:
+        stations_dict = json.load(f)
+
+    if check_validity(det, det.position, 1, "bus", stations_dict):
+        print(mrx.tokens, det.tokens)
+        det.move(185, "bus", mrx)
+        print(mrx.tokens, det.tokens)
+        print(det.position)
