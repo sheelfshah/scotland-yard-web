@@ -6,7 +6,7 @@ import random
 class ScotlandYardGame:
 
     def __init__(self):
-        with open("assets/utilities.json.min") as f:
+        with open("assets/utilities.min.json") as f:
             utilities = json.load(f)
 
         start_positions = random.sample(utilities["start_positions"], 6)

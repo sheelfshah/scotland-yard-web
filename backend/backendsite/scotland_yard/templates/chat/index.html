@@ -1,12 +1,16 @@
 <!-- chat/templates/chat/index.html -->
+{%load static%}
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Chat Rooms</title>
+    <title>Scotland Yard</title>
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css//bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/homepage_style.css' %}">
 </head>
 <body>
-    What should everyone call you?<br>
+    
     <input id="room-name-input" type="text" size="100"><br>
     <input id="room-name-submit" type="button" value="Enter">
 
@@ -23,5 +27,7 @@
             window.location.pathname = '/chat/' + roomName + '/';
         };
     </script>
+    <script src="{% static vendor/jquery/jquery.min.js}"></script>
+    <script src="{% static vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
