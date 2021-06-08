@@ -36,7 +36,7 @@ class ScotlandYardGame:
         state["last_public_position"] = self.mrx.last_public_position
         self.game_state = state
 
-    def move_over(self):
+    def move_completed(self):
         # update current playing
         if self.current_playing.role.startswith("mrx"):
             self.current_playing = self.detectives[0]
@@ -107,7 +107,7 @@ if __name__ == '__main__':
         "transport": "taxi",
     }
     print(syg.move(move_dict1))
-    syg.move_over()
+    syg.move_completed()
     print(syg.game_state)
     move_dict2={
         "role": "det1_name",
@@ -116,6 +116,6 @@ if __name__ == '__main__':
         "transport": "underground",
     }
     print(syg.move(move_dict2))
-    syg.move_over()
+    syg.move_completed()
     print(syg.game_state)
     print(syg.mrx.tokens)

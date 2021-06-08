@@ -1,0 +1,7 @@
+venv name: venv_scot
+run redis: docker run -p 6379:6379 -d redis:5 
+run server: python3 manage.py runserver 0.0.0.0:8000
+
+todo:
+    improve quality of consumers.py
+    styling the html pages
