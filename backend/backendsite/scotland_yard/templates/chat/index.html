@@ -6,16 +6,38 @@
 <head>
     <meta charset="utf-8"/>
     <title>Scotland Yard</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css//bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/homepage_style.css' %}">
 </head>
 <body>
+    <div id="title">
+        <center>
+            <h1>Scotland Yard</h1>
+            <h2>A compelling detective game</h2>
+        </center>
+    </div>
+    <div id="buttons">
+        <div id="create-room" class="room-button">
+            Create Room
+        </div>
+        <div id="join-room" class="room-button">
+            Join Room
+        </div>
+    </div>
     
-    <input id="room-name-input" type="text" size="100"><br>
-    <input id="room-name-submit" type="button" value="Enter">
+    <input id="room-create" type="text" size="100"><br>
+    <input id="room-create-submit" type="button" value="Enter">
+
+    <input id="room-join" type="text" size="100"><br>
+    <input id="room-join-submit" type="button" value="Enter">
 
     <script>
-        document.querySelector('#room-name-input').focus();
+        $("#create-room").click(function(){
+            alert("clicked");
+            $("#room-create").toggleClass("hidden");
+        });
         document.querySelector('#room-name-input').onkeyup = function(e) {
             if (e.keyCode === 13) {  // enter, return
                 document.querySelector('#room-name-submit').click();
@@ -27,7 +49,7 @@
             window.location.pathname = '/chat/' + roomName + '/';
         };
     </script>
-    <script src="{% static vendor/jquery/jquery.min.js}"></script>
-    <script src="{% static vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 </html>
