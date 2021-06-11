@@ -1,12 +1,11 @@
 var sc = JSON.parse(station_coordinates);
 
-var factor = 2;
+var factor = 1;
 var $mapimg = $("#map-img");
 var $mapcanvas = $('#map-canvas');
 
 var canvas = document.getElementById("map-canvas");
 var ctx = canvas.getContext("2d");
-
 
 $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position 
         var posX = $(this).position().left,
@@ -16,17 +15,18 @@ $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position
         
         var station_clicked = -1;
 
-        for (var i = 0; i < sc.length; i++) {
-            var dist = (ptx - sc[i]["cx"])**2 + (pty - sc[i]["cy"])**2;
-            if (dist < 100) {
-                station_clicked = sc[i]["number"];
+        for (var i = 1; i <= Object.keys(sc).length; i++) {
+            var dist = (ptx - sc[i.toString()]["x"])**2 + (pty - sc[i.toString()]["y"])**2;
+            if (dist < 529) {
+                station_clicked = i;
                 break;
             }
         }
         console.log(station_clicked);
         ctx.beginPath();
-        ctx.arc(sc[station_clicked-1]["cx"]*factor, sc[station_clicked-1]["cy"]*factor,
-            10*factor, 0, 2 * Math.PI);
+        ctx.arc(sc[station_clicked.toString()]["x"]*factor, sc[station_clicked.toString()]["y"]*factor,
+            23*factor, 0, 2 * Math.PI);
+        ctx.lineWidth = 4*factor;
         ctx.stroke();
 });
 
