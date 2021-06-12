@@ -35,7 +35,6 @@ function scale_stuff(scale) {
     $mapimg.width($mapimg.width()*scale);
     canvas.height = $mapimg.height();
     canvas.width = $mapimg.width();
-    console.log(canvas.height);
     factor = factor * scale;
     //redraw circles
 }

@@ -3,5 +3,9 @@ run redis: docker run -p 6379:6379 -d redis:5
 run server: python3 manage.py runserver 0.0.0.0:8000
 
 todo:
-    improve quality of consumers.py
-    styling the html pages
+create room join and room create urls
+    complete index page
+    mrx position in game state only for mrx, for others last_known_pos
+    create backend consumer, with new game instances
+    start communication b/w frontend and backend
+    lots to do in frontend
