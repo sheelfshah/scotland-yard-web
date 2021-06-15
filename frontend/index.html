@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,8 +7,8 @@
     <title>Scotland Yard</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css//bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/homepage_style.css">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/homepage_style.css' %}">
 </head>
 <body>
     <div id="title">
@@ -27,11 +29,12 @@
     <input id="room-join" class="input-text hidden" type="number" size="100"><br>
     <input id="room-join-submit" class="input-submit hidden" type="button" value="Join Room">
 
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
     <script>
         $("#create-room").click(function(){
-            //redirect to room create url
+            var roomNum = Math.floor((Math.random() * 9000) + 1000); // random num in 1000, 10000
+            window.location.pathname += 'create/' + roomNum.toString() + '/';
         });
         $("#join-room").click(function(){
             if($("#room-join-submit").hasClass("hidden")){
@@ -46,9 +49,8 @@
         };
 
         document.querySelector('#room-join-submit').onclick = function(e) {
-            var roomName = document.querySelector('#room-join').value;
-            window.location.pathname = '/chat/' + roomName + '/';
-            //redirect to join room page
+            var roomNum = document.querySelector('#room-join').value;
+            window.location.pathname += 'join/' + roomNum + '/';
         };
     </script>
 </body>

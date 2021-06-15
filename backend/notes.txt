@@ -4,7 +4,6 @@ run server: python3 manage.py runserver 0.0.0.0:8000
 
 todo:
 create room join and room create urls
-    complete index page
     mrx position in game state only for mrx, for others last_known_pos
     create backend consumer, with new game instances
     start communication b/w frontend and backend
