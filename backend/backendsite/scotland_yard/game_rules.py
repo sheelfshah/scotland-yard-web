@@ -1,11 +1,12 @@
 # a class that implements a game instance
 # assign positions, move characters
-from game_players import *
+from .game_players import *
 import random
 
 class ScotlandYardGame:
 
-    def __init__(self):
+    def __init__(self, game_id):
+        self.game_id = game_id
         with open("assets/utilities.min.json") as f:
             utilities = json.load(f)
 
@@ -22,7 +23,18 @@ class ScotlandYardGame:
         ]
         self.players = [self.mrx] + self.detectives
         self.current_playing = self.mrx
+
+        self.players_in_game = 0
         self.update_game_state()
+
+
+    def add_player(self, name):
+        if self.players_in_game < 6:
+            self.players[self.players_in_game].role = \
+                self.players[self.players_in_game].role.replace("name", name)
+            self.players_in_game += 1
+            return self.players[self.players_in_game-1].role
+        raise Exception("Game is full")
 
 
     def update_game_state(self):

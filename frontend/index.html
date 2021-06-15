@@ -33,8 +33,11 @@
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
     <script>
         $("#create-room").click(function(){
-            var roomNum = Math.floor((Math.random() * 9000) + 1000); // random num in 1000, 10000
-            window.location.pathname += 'create/' + roomNum.toString() + '/';
+            var name = prompt("Enter an alias:", "Anuoam");
+            if(name){
+                var roomNum = Math.floor((Math.random() * 9000) + 1000); // random num in 1000, 10000
+                window.location = window.location.href + 'create/' + roomNum.toString() + '?name=' + name;
+            }
         });
         $("#join-room").click(function(){
             if($("#room-join-submit").hasClass("hidden")){
@@ -49,8 +52,11 @@
         };
 
         document.querySelector('#room-join-submit').onclick = function(e) {
+            var name = prompt("Enter an alias:", "Anuoam");
             var roomNum = document.querySelector('#room-join').value;
-            window.location.pathname += 'join/' + roomNum + '/';
+            if(name && roomNum){
+                window.location = window.location.href + 'join/' + roomNum.toString() + '?name=' + name;
+            }
         };
     </script>
 </body>
