@@ -4,79 +4,34 @@ from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import random
 
-roles_dict = {
-    "god": 1,
-    "mafia": 4,
-    "bomber": 1,
-    "joker": 1,
-    "barman": 1,
-    "detective": 2,
-    "civilian": 5,
-    "clueful_doctor": 1,
-    "clueless_doctor": 1,
-    "dead": 0
-}
-
-room_group_names_dict = {
-    "god": None,
-    "mafia": None, "detective": None,
-    "civilian": None,
-    "bomber": None, "joker": None, "barman": None,
-    "clueless_doctor": None, "clueful_doctor": None,
-    "dead": None
-}
-
-roles_room_codes = {
-    "mafia": None,
-    "detective": None,
-    "god": None,
-    "dead": None
-}
-
-roomless_roles = ["bomber", "joker", "barman", "civilian",
-                  "clueful_doctor", "clueless_doctor"]
-
-role_index = 0
-roles = []
-for role in roles_dict.keys():
-    roles += [role] * roles_dict[role]
-random.shuffle(roles)
-# print(roles)
+from .views import ongoing_games
 
 
-def get_random_role():
-    global role_index, roles
-
-    role_index += 1
-    try:
-        return roles[role_index - 1]
-    except:
-        role_index -= 1
-        return "dead"
-
-
-def get_room_name(role):
-    global roles_room_codes
-    if roles_room_codes[role] is not None:
-        return "chat_" + role + "_" + roles_room_codes[role]
-
-    roles_room_codes[role] = str(random.randint(1000, 10000))
-    return "chat_" + role + "_" + roles_room_codes[role]
-
-
-class ChatConsumer(WebsocketConsumer):
+class GameConsumer(WebsocketConsumer):
 
     def connect(self):
-        global room_group_names_dict
+        room_num = self.scope['url_route']['kwargs']['room_num']
+        self.room_group_name = 'game_%d' % room_num
 
-        self.name = self.scope['url_route']['kwargs']['room_name']
-        self.role = get_random_role()
+        # validate room num
+        self.game = None
+        for game in ongoing_games:
+            if game.game_id == self.room_num:
+                self.game = game
+                break
+        if self.game is None:
+            self.close()
+
+        # validate role
+        self.role = self.scope['url_route']['kwargs']['role']
+        valid_role=False
+        for player in game.players:
+            if player.role ==  self.role:
+                valid_role = True
+                break
+        if not valid_role:
+            self.close()
         print(self.role)
-        if self.role in roomless_roles:
-            self.room_group_name = "chat_" + self.role
-        else:
-            self.room_group_name = get_room_name(self.role)
-        room_group_names_dict[self.role] = self.room_group_name
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
@@ -91,14 +46,12 @@ class ChatConsumer(WebsocketConsumer):
         }))
 
     def disconnect(self, close_code):
-        global roles
+        if self.game is not None:
+            for i, game in enumerate(ongoing_games):
+            if game.game_id == self.game.game_id:
+                self.game = game
+                break
 
-        # Leave room group
-        async_to_sync(self.channel_layer.group_discard)(
-            self.room_group_name,
-            self.channel_name
-        )
-        roles.append(self.role)
 
     # Receive message from WebSocket
     def receive(self, text_data):
