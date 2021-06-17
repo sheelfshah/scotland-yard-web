@@ -11,26 +11,32 @@ class GameConsumer(WebsocketConsumer):
 
     def connect(self):
         room_num = self.scope['url_route']['kwargs']['room_num']
+        room_num = int(room_num)
         self.room_group_name = 'game_%d' % room_num
 
         # validate room num
         self.game = None
         for game in ongoing_games:
-            if game.game_id == self.room_num:
+            print(game.game_id)
+            if game.game_id == room_num:
                 self.game = game
                 break
-        if self.game is None:
+        if not self.game:
             self.close()
+            return
 
         # validate role
         self.role = self.scope['url_route']['kwargs']['role']
         valid_role=False
-        for player in game.players:
+        for player in self.game.players:
             if player.role ==  self.role:
                 valid_role = True
                 break
         if not valid_role:
             self.close()
+            return
+
+            
         print(self.role)
 
         # Join room group
@@ -38,19 +44,17 @@ class GameConsumer(WebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
-
+        self.user = self.scope["user"]
+        print(self.user)
         self.accept()
-        self.send(text_data=json.dumps({
-            'purpose': "setup",
-            'role': self.role,
-        }))
+        
 
     def disconnect(self, close_code):
         if self.game is not None:
             for i, game in enumerate(ongoing_games):
-            if game.game_id == self.game.game_id:
-                self.game = game
-                break
+                if game.game_id == self.game.game_id:
+                    self.game = game
+                    break
 
 
     # Receive message from WebSocket
