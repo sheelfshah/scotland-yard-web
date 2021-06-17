@@ -10,6 +10,8 @@ def get_color(role):
 class Player:
 
     def __init__(self, role, position):
+        # first 3 chars role mrx/det, then position in playing order
+        # then _, then alias
         self.role = role
         self.color = get_color(role.lower())
         self.position = position
@@ -26,6 +28,9 @@ class Player:
                 "taxi": 4, "bus": 3,
                 "underground": 3, "blackticket": 5, "double": 2
             }
+
+    def change_name(self, name):
+        self.role = self.role[:5]+name
 
     def check_token(self, transport):
         # retrurns True if transport token available

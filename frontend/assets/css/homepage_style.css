@@ -13,12 +13,13 @@ body {
     left: 20%;
     background-color: #fff;
     border-radius: 20px;
+    min-height: 20%;
 }
 
 #title h1{
-    color: #14b;
-    font-family: 'Berkshire Swash', cursive;
-    font-size: 80pt;
+    color: #237;
+    font-family: cursive;
+    font-size: 7vw;
     padding-bottom: 0;
     margin-bottom: 0;
 }
@@ -29,7 +30,8 @@ body {
     font-size: 20pt;
     font-weight: 800;
     padding-top: 0;
-    margin-top: -10px;
+    margin-top: auto;
+    margin-bottom: 10px;
 }
 
 #buttons{
@@ -47,7 +49,7 @@ body {
     margin-right: 10%;
     padding: 10px 15px;
     display: inline;
-    font-size: 25pt;
+    font-size: 2vw;
     font-weight: 500;
     border-radius: 10px;
     z-index: 1;
@@ -68,7 +70,7 @@ body {
     border: 3px solid #000;
     border-radius: 10px;
     background-color: #fff;
-    color: #14b;
+    color: #237;
     font-size:  20pt;
     font-weight: bolder;
     text-align: center;

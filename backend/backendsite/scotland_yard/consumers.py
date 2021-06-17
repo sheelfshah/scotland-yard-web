@@ -1,15 +1,31 @@
 # chat/consumers.py
-import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
+
 import random
+import json
+from copy import deepcopy as dcopy
 
 from .views import ongoing_games
 
 
+"""close codes:(wrt 3000)
+    1: no such game
+    2: no such role
+"""
+consumer_number = 1234
+
+
 class GameConsumer(WebsocketConsumer):
+    """
+    assumption:
+        on every new connection, a new consumer is created
+        and it connects to the game with a unique consumer_id
+        and the game can call events on the consumer
+    """
 
     def connect(self):
+        global consumer_number
         room_num = self.scope['url_route']['kwargs']['room_num']
         room_num = int(room_num)
         self.room_group_name = 'game_%d' % room_num
@@ -22,30 +38,18 @@ class GameConsumer(WebsocketConsumer):
                 self.game = game
                 break
         if not self.game:
-            self.close()
+            self.accept()
+            self.close(code=3001)
             return
-
-        # validate role
-        self.role = self.scope['url_route']['kwargs']['role']
-        valid_role=False
-        for player in self.game.players:
-            if player.role ==  self.role:
-                valid_role = True
-                break
-        if not valid_role:
-            self.close()
-            return
-
             
-        print(self.role)
-
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name
         )
-        self.user = self.scope["user"]
-        print(self.user)
+        self.consumer_id = consumer_number
+        consumer_number += random.choice([3,4,5])
+        self.game.add_consumer(self)
         self.accept()
         
 
@@ -53,124 +57,60 @@ class GameConsumer(WebsocketConsumer):
         if self.game is not None:
             for i, game in enumerate(ongoing_games):
                 if game.game_id == self.game.game_id:
-                    self.game = game
+                    self.game.remove_player(self.role)
+                    if len(self.game.available_roles) == 6:
+                        del ongoing_games[i]
                     break
 
 
-    # Receive message from WebSocket
+    # Communication with WebSocket
+    """message formats
+    all mssgs must have "purpose" key which is one of :
+        * setup_server: client sends role
+        * play_move: client sends move_dict
+
+        * move_reply: server sends move_dict and bool(move_success)
+        * game_update: server sends game_state # edits mrx_pos
+        * game_end: server send reason for end
+
+    all mssgs have "who" key which is senders role
+    """
+    def game_update_event(self):
+        game_state = dcopy(self.game.game_state)
+        if self.role != self.game.mrx.role:
+            del game_state[self.game.mrx.role]
+        self.send(text_data=json.dumps({
+            'purpose': "game_update",
+            'who': self.role,
+            'game_state': game_state
+        }))
+
     def receive(self, text_data):
-        global room_group_names_dict
-
         text_data_json = json.loads(text_data)
-        message = text_data_json['message']
+        purpose = text_data_json['purpose']
 
-        if self.role == "god":
-            try:
-                receiver_role = text_data_json['receiver_role']
-                if receiver_role not in roles_dict.keys():
-                    raise ValueError
-            except:
-                self.send(text_data=json.dumps({
-                    'purpose': "chat",
-                    'name': self.name,
-                    'message': "sent to no one"
-                }))
-                return
-            async_to_sync(self.channel_layer.group_send)(
-                room_group_names_dict[receiver_role],
-                {
-                    'type': 'chat_message',
-                    'message': message,
-                    'name': "god " + self.name,
-                }
-            )
-            async_to_sync(self.channel_layer.group_send)(
-                self.room_group_name,
-                {
-                    'type': 'chat_message',
-                    'message': message,
-                    'name': "god " + self.name,
-                }
-            )
+        if purpose == "setup_server":
+            self.role = text_data_json["role"]
+
+            # validate role
+            valid_role=False
+            for player in self.game.players:
+                if player.role ==  self.role:
+                    valid_role = True
+                    break
+            if not valid_role:
+                self.close(code=3002)
+            print(self.role)
             return
-
-        # Send message to self
-        if self.role in roomless_roles:
-            try:
-                receiver_role = text_data_json['receiver_role']
-                if receiver_role == "god":
-                    async_to_sync(self.channel_layer.group_send)(
-                        room_group_names_dict["god"],
-                        {
-                            'type': 'chat_message',
-                            'message': message,
-                            'name': self.role + " " + self.name,
-                        }
-                    )
-                    if message[:4] == "dead":
-                        async_to_sync(self.channel_layer.group_discard)(
-                            self.room_group_name,
-                            self.channel_name
-                        )
-                        self.role = "dead"
-                        self.room_group_name = get_room_name(self.role)
-                        room_group_names_dict[self.role] = self.room_group_name
-                        async_to_sync(self.channel_layer.group_add)(
-                            self.room_group_name,
-                            self.channel_name
-                        )
-                        self.send(text_data=json.dumps({
-                            'purpose': "setup",
-                            'role': self.role,
-                        }))
-
-            except:
-                pass
-
-            self.send(text_data=json.dumps({
-                'purpose': "chat",
-                'name': self.name,
-                'message': message
-            }))
-            return
-
-        try:
-            receiver_role = text_data_json['receiver_role']
-            if receiver_role == "god":
-                async_to_sync(self.channel_layer.group_send)(
-                    room_group_names_dict["god"],
-                    {
-                        'type': 'chat_message',
-                        'message': message,
-                        'name': self.role + " " + self.name,
-                    }
-                )
-                if message[:4] == "dead":
-                    async_to_sync(self.channel_layer.group_discard)(
-                        self.room_group_name,
-                        self.channel_name
-                    )
-                    self.role = "dead"
-                    self.room_group_name = get_room_name(self.role)
-                    room_group_names_dict[self.role] = self.room_group_name
-                    async_to_sync(self.channel_layer.group_add)(
-                        self.room_group_name,
-                        self.channel_name
-                    )
-                    self.send(text_data=json.dumps({
-                        'purpose': "setup",
-                        'role': self.role,
-                    }))
-        except:
-            pass
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
-                'message': message,
-                'name': self.name,
-            }
-        )
+        
+        # async_to_sync(self.channel_layer.group_send)(
+        #     self.room_group_name,
+        #     {
+        #         'type': 'chat_message',
+        #         'message': message,
+        #         'name': self.name,
+        #     }
+        # )
 
     # Receive message from room group
     def chat_message(self, event):

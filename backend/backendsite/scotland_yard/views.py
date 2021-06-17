@@ -14,7 +14,7 @@ def room_join(request, room_num):
         if game.game_id == room_num:
             try:
                 role = game.add_player(request.GET.get("name"))
-                return render(request, 'game.html', {
+                return render(request, 'redirect.html', {
                     'room_num': room_num, 'role': role
                 })
             except:
@@ -26,6 +26,9 @@ def room_create(request, room_num):
     game = ScotlandYardGame(room_num)
     ongoing_games.append(game)
     role  = game.add_player(request.GET.get("name"))
-    return render(request, 'game.html', {
+    return render(request, 'redirect.html', {
         'room_num': room_num, 'role': role
     })
+
+def play_game(request, room_num):
+    return render(request, 'game.html', {})

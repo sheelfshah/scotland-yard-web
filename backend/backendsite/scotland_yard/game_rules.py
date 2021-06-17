@@ -13,7 +13,7 @@ class ScotlandYardGame:
         start_positions = random.sample(utilities["start_positions"], 6)
         self.stations_dict = utilities["stations"]
 
-        self.mrx = MrX("mrx_name", start_positions[0])
+        self.mrx = MrX("mrx0_name", start_positions[0])
         self.detectives = [
             Detective("det1_name", start_positions[1]),
             Detective("det2_name", start_positions[2]),
@@ -24,18 +24,44 @@ class ScotlandYardGame:
         self.players = [self.mrx] + self.detectives
         self.current_playing = self.mrx
 
-        self.players_in_game = 0
+        self.available_roles = [
+            "mrx0", "det1", "det2",
+            "det3",  "det4",  "det5"]
+        self.consumers = []
         self.update_game_state()
 
 
     def add_player(self, name):
-        if self.players_in_game < 6:
-            self.players[self.players_in_game].role = \
-                self.players[self.players_in_game].role.replace("name", name)
-            self.players_in_game += 1
-            return self.players[self.players_in_game-1].role
+        print(self.available_roles)
+        if len(self.available_roles) > 0:
+            player_index = int(self.available_roles[0][-1])
+            self.players[player_index].change_name(name)
+            del self.available_roles[0]
+            self.update_game_state()
+            return self.players[player_index].role
         raise Exception("Game is full")
 
+    def remove_player(self, role):
+        # must be a valid role
+        for player in self.players:
+            if player.role == role:
+                self.available_roles.append(role[:4])
+                player.change_name("name")
+                break
+        print(self.available_roles)
+        self.update_game_state()
+
+    def add_consumer(self, consumer):
+        self.consumers.append(consumer)
+
+    def remove_consumers(self, consumer_id):
+        for i, consumer in enumerate(self.consumers):
+            if consumer.consumer_id == consumer_id:
+                del self.consumers[i]
+
+    def update_game_for_consumers(self):
+        for consumer in self.consumers:
+            consumer.game_update_event()
 
     def update_game_state(self):
         state = {}
@@ -46,7 +72,9 @@ class ScotlandYardGame:
         state["mrx_rounds_played"] = self.mrx.moves_played
         state["last_transport_used"] = self.mrx.last_transport_used
         state["last_public_position"] = self.mrx.last_public_position
+        state["num_players"] = 6 - len(self.available_roles)
         self.game_state = state
+        self.update_game_for_consumers()
 
     def move_completed(self):
         # update current playing
