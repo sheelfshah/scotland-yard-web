@@ -7,10 +7,14 @@ class ScotlandYardGame:
 
     def __init__(self, game_id):
         self.game_id = game_id
+        self.available_roles = [
+            "mrx0", "det1", "det2",
+            "det3",  "det4",  "det5"]
+        self.total_roles = len(self.available_roles)
         with open("assets/utilities.min.json") as f:
             utilities = json.load(f)
 
-        start_positions = random.sample(utilities["start_positions"], 6)
+        start_positions = random.sample(utilities["start_positions"], self.total_roles)
         self.stations_dict = utilities["stations"]
 
         self.mrx = MrX("mrx0_name", start_positions[0])
@@ -24,9 +28,6 @@ class ScotlandYardGame:
         self.players = [self.mrx] + self.detectives
         self.current_playing = self.mrx
 
-        self.available_roles = [
-            "mrx0", "det1", "det2",
-            "det3",  "det4",  "det5"]
         self.consumers = []
         self.update_game_state()
 
@@ -63,6 +64,10 @@ class ScotlandYardGame:
         for consumer in self.consumers:
             consumer.game_update_event()
 
+    def end_game_for_consumers(self, reason):
+        for consumer in self.consumers:
+            consumer.game_end_event(reason)
+
     def update_game_state(self):
         state = {}
         for player in self.players:
@@ -72,7 +77,7 @@ class ScotlandYardGame:
         state["mrx_rounds_played"] = self.mrx.moves_played
         state["last_transport_used"] = self.mrx.last_transport_used
         state["last_public_position"] = self.mrx.last_public_position
-        state["num_players"] = 6 - len(self.available_roles)
+        state["num_players"] = self.total_roles - len(self.available_roles)
         self.game_state = state
         self.update_game_for_consumers()
 
@@ -89,6 +94,10 @@ class ScotlandYardGame:
 
         # update game state
         self.update_game_state()
+
+        # check completion
+        if False:
+            self.end_game_for_consumers(reason)
 
     def move(self, move_dict):
         """

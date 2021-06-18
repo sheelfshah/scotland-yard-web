@@ -11,12 +11,18 @@ window.onload = function() {
   canvas.width = $img.width();
 };
 
-var syg_role = localStorage.getItem("syg_role");
+// global vars
+var syg_name = localStorage.getItem("syg_name");
 var syg_room_num = localStorage.getItem("syg_room_num");
+var syg_role = "";
 
-if((!syg_role)||(!syg_room_num)){
+var latest_move_dict = {};
+var game_state={};
+
+if((!syg_name)||(!syg_room_num)){
   alert("Something is wrong :(; Go to " +
     window.location.host + "/scotland_yard to reset");
+  syg_room_num=0;
 }
 
 const socket = new WebSocket(
@@ -24,17 +30,21 @@ const socket = new WebSocket(
   + window.location.host
   + '/ws/scotland_yard/'
   + syg_room_num + '/'
-  + syg_role + '/'
 );
 
 socket.addEventListener('open', function (event) {
     console.log("Socket established");
     socket.send(JSON.stringify({
       'purpose': "setup_server",
-      'role': syg_role
+      'name': syg_name
     }));
 });
 
 socket.addEventListener('close', function (event) {
   console.log("Socket closed " + event.code);
 });
+
+function update_game() {
+  // temporary
+  console.log("game updated");
+}

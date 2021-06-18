@@ -4,6 +4,4 @@ run server: python3 manage.py runserver 0.0.0.0:8000
 
 todo:
 create room join and room create urls
-    change backend structure
-    start communication b/w frontend and backend
     lots to do in frontend

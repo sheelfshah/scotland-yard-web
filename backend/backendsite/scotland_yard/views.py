@@ -13,9 +13,8 @@ def room_join(request, room_num):
     for game in ongoing_games:
         if game.game_id == room_num:
             try:
-                role = game.add_player(request.GET.get("name"))
                 return render(request, 'redirect.html', {
-                    'room_num': room_num, 'role': role
+                    'room_num': room_num
                 })
             except:
                 return HttpResponse("<h1>This room is full :/</h1>")
@@ -25,9 +24,8 @@ def room_create(request, room_num):
     global ongoing_games
     game = ScotlandYardGame(room_num)
     ongoing_games.append(game)
-    role  = game.add_player(request.GET.get("name"))
     return render(request, 'redirect.html', {
-        'room_num': room_num, 'role': role
+        'room_num': room_num
     })
 
 def play_game(request, room_num):
