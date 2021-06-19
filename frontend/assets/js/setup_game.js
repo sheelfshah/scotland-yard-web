@@ -24,6 +24,11 @@ if((!syg_name)||(!syg_room_num)){
     window.location.host + "/scotland_yard to reset");
   syg_room_num=0;
 }
+else if(parseInt(window.location.pathname.slice(-5, -1))!=syg_room_num){
+  alert("Something is wrong :(; Go to " +
+    window.location.host + "/scotland_yard to reset");
+  syg_room_num=0;
+}
 
 const socket = new WebSocket(
   'ws://'
