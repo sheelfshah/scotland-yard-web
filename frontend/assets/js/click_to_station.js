@@ -1,13 +1,3 @@
-var sc = JSON.parse(station_coordinates);
-
-var factor = 1;
-var $mapdiv = $("#map-div");
-var $mapimg = $("#map-img");
-var $mapcanvas = $('#map-canvas');
-
-var canvas = document.getElementById("map-canvas");
-var ctx = canvas.getContext("2d");
-
 $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position 
         var posX_parent = $(this).parent().position().left,
             posY_parent = $(this).parent().position().top,
@@ -26,8 +16,6 @@ $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position
             }
         }
         console.log(station_clicked);
-        console.log(ptx+" "+pty);
-        console.log(sc[station_clicked.toString()]["x"]+" "+sc[station_clicked.toString()]["y"]);
         ctx.beginPath();
         ctx.arc(sc[station_clicked.toString()]["x"]*factor, sc[station_clicked.toString()]["y"]*factor,
             23*factor, 0, 2 * Math.PI);

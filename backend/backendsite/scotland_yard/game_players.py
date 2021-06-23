@@ -4,7 +4,13 @@ import json
 
 
 def get_color(role):
-    return "#000000"
+    start = role[:4]
+    role_color = {
+        "mrx0": "#e5e5e5", "det1": "#ff6b5d",
+        "det2": "#60cc8f", "det3": "#c485d6",
+        "det4": "#ff00ff", "det5": "#4380cc"
+    }
+    return role_color[start]
 
 
 class Player:
@@ -15,8 +21,6 @@ class Player:
         self.role = role
         self.color = get_color(role.lower())
         self.position = position
-
-        self.has_played = False
 
         if self.role.lower().startswith("det"):
             self.tokens = {
@@ -38,6 +42,13 @@ class Player:
             if self.tokens[transport] > 0:
                 return True
         return False
+
+    def to_json(self):
+        ans = {}
+        ans["color"] = self.color
+        ans["position"] = self.position
+        ans["tokens"] = self.tokens
+        return ans
 
 
 class Detective(Player):
@@ -62,6 +73,16 @@ class MrX(Player):
         self.moves_played = 0
         self.last_transport_used = None
         self.reveal_times = [3, 8, 13, 18, 24]
+
+    def to_json(self):
+        ans = {}
+        ans["color"] = self.color
+        ans["position"] = self.position
+        ans["tokens"] = self.tokens
+        ans["moves_played"] = self.moves_played
+        ans["last_transport_used"] = self.last_transport_used
+        ans["last_public_position"] = self.last_public_position
+        return ans
 
     def increase_token(self, transport):
         self.tokens[transport] += 1

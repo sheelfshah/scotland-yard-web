@@ -1,10 +1,15 @@
-#map-div{
-    position: absolute;
-    width: 90vw; right: 0vw;
-    height: 90vh; bottom: 0vh;
+/* General */
+body{
+    background-color: #2A3139;
 }
 
-
+/* Maps Styling */
+#map-div{
+    position: absolute;
+    width: 75vw; right: 0vw;
+    height: 90vh; bottom: 0vh;
+    overflow: scroll;
+}
 #map-canvas{
     padding: 0;
     margin: 0;
@@ -18,4 +23,27 @@
     left: 0;
     width: 1800px;
     height: 1345px;
+}
+
+/* Stats styling */
+#player-stats{
+    position: absolute;
+    width:  20vw; left: 1vw;
+    height: 40vh; bottom: 1vh;
+}
+#player-stat-name{
+    margin:  0;
+    text-align: center;
+    font-size: 2.4vw;
+}
+#player-stat-position{
+    margin-top:  0;
+    margin-bottom:  3vh;
+    text-align: center;
+    font-size: 3vw;
+    color: white;
+}
+#player-stat-tokens td{
+    text-align: center;
+    font-size: 2.4vw;
 }

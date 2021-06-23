@@ -1,16 +1,3 @@
-window.onload = function() {
-  var canvas = document.getElementById("map-canvas");
-  var ctx = canvas.getContext("2d");
-  var $img = $("#map-img");
-  var $canvas = $("#map-canvas")
-  $canvas.css({
-    top: $img.position().top,
-    left: $img.position().left
-  });
-  canvas.height = $img.height();
-  canvas.width = $img.width();
-};
-
 // global vars
 var syg_name = localStorage.getItem("syg_name");
 var syg_room_num = localStorage.getItem("syg_room_num");
@@ -18,6 +5,25 @@ var syg_role = "";
 
 var latest_move_dict = {};
 var game_state={};
+
+var $mapdiv = $("#map-div");
+var $mapimg = $("#map-img");
+var $mapcanvas = $('#map-canvas');
+
+var canvas = document.getElementById("map-canvas");
+var ctx = canvas.getContext("2d");
+
+var sc = JSON.parse(station_coordinates);
+var factor = 1;
+
+window.onload = function() {
+  $mapcanvas.css({
+    top: $mapimg.position().top,
+    left: $mapimg.position().left
+  });
+  canvas.height = $mapimg.height();
+  canvas.width = $mapimg.width();
+};
 
 if((!syg_name)||(!syg_room_num)){
   alert("Something is wrong :(; Go to " +
@@ -48,8 +54,3 @@ socket.addEventListener('open', function (event) {
 socket.addEventListener('close', function (event) {
   console.log("Socket closed " + event.code);
 });
-
-function update_game() {
-  // temporary
-  console.log("game updated");
-}

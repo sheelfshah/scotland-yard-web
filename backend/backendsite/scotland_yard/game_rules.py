@@ -71,12 +71,9 @@ class ScotlandYardGame:
     def update_game_state(self):
         state = {}
         for player in self.players:
-            state[player.role] = player.position
+            state[player.role] = player.to_json()
 
         state["current_playing"] = self.current_playing.role
-        state["mrx_rounds_played"] = self.mrx.moves_played
-        state["last_transport_used"] = self.mrx.last_transport_used
-        state["last_public_position"] = self.mrx.last_public_position
         state["num_players"] = self.total_roles - len(self.available_roles)
         self.game_state = state
         self.update_game_for_consumers()
@@ -116,6 +113,14 @@ class ScotlandYardGame:
         try:
             if move_dict["role"] != self.current_playing.role:
                 return False
+
+            # can't go to an occupied position
+            # only for detectives
+            if move_dict["role"].startswith("det"):
+                for detective in self.detectives:
+                    if detective.position == move_dict["next_position"]:
+                        return False
+
             if move_dict["is_double"]:
                 if not self.current_playing.role.startswith("mrx"):
                     return False

@@ -49,10 +49,10 @@ class GameConsumer(WebsocketConsumer):
             return
 
         # Join room group
-        async_to_sync(self.channel_layer.group_add)(
-            self.room_group_name,
-            self.channel_name
-        )
+        # async_to_sync(self.channel_layer.group_add)(
+        #     self.room_group_name,
+        #     self.channel_name
+        # )
         self.role = None
         self.consumer_id = consumer_number
         consumer_number += random.choice([3,4,5])
@@ -113,7 +113,7 @@ class GameConsumer(WebsocketConsumer):
     def game_update_event(self):
         game_state = dcopy(self.game.game_state)
         if self.role != self.game.mrx.role:
-            del game_state[self.game.mrx.role]
+            del game_state[self.game.mrx.role]["position"]
         self.send(text_data=json.dumps({
             'purpose': "game_update",
             'who': self.role,
@@ -138,6 +138,7 @@ class GameConsumer(WebsocketConsumer):
             name = text_data_json["name"]
             try:
                 self.role = self.game.add_player(name)
+                self.game_update_event()
             except:
                 self.close(code=3002)
             print(self.role)
