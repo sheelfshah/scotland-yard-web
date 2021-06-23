@@ -1,7 +1,7 @@
 var sc = JSON.parse(station_coordinates);
 
 var factor = 1;
-var $mapdiv = $("#map");
+var $mapdiv = $("#map-div");
 var $mapimg = $("#map-img");
 var $mapcanvas = $('#map-canvas');
 
