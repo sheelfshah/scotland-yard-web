@@ -15,12 +15,15 @@ $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position
                 break;
             }
         }
-        console.log(station_clicked);
-        ctx.beginPath();
+        if(station_clicked<=0) return;
+        path = graph.minimum_token_path(
+            game_state[syg_role].position, station_clicked);
+        console.log(path);
+        /*ctx.beginPath();
         ctx.arc(sc[station_clicked.toString()]["x"]*factor, sc[station_clicked.toString()]["y"]*factor,
             23*factor, 0, 2 * Math.PI);
         ctx.lineWidth = 4*factor;
-        ctx.stroke();
+        ctx.stroke();*/
 });
 
 function scale_stuff(scale) {
@@ -39,3 +42,17 @@ $("#zoom-in").click(function () {
 $("#zoom-out").click(function () {
     scale_stuff(0.8696);
 });  
+
+$("#toggle-fullscreen").click(function (){
+    if($mapdiv.width()/$(window).width() >= 0.8){
+        $mapdiv.width("75vw");
+        $mapdiv.height("90vh");
+        var new_src = $($(this).children()[0]).attr("src").replace("compress", "expand");
+        $($(this).children()[0]).attr("src", new_src);
+        return;
+    }
+    $mapdiv.width("100vw");
+    $mapdiv.height("100vh");
+    var new_src = $($(this).children()[0]).attr("src").replace("expand", "compress");
+    $($(this).children()[0]).attr("src", new_src);
+});

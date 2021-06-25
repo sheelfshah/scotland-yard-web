@@ -23,13 +23,37 @@ body{
     left: 0;
     width: 1800px;
     height: 1345px;
+    z-index: 0;
 }
+.map-button{
+    position: fixed;
+    z-index: 20;
+    margin-top: 1vh;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+.map-button img{
+    height: 4vh;
+    width: 4vh;
+    z-index: 20;
+}
+.map-button:nth-child(1){margin-left: 1vh;}
+.map-button:nth-child(2){margin-left: 7vh;}
+.map-button:nth-child(3){margin-left: 13vh;}
+.map-button:nth-child(4){margin-left: 19vh;}
 
 /* Stats styling */
 #player-stats{
     position: absolute;
-    width:  20vw; left: 1vw;
-    height: 40vh; bottom: 1vh;
+    width:  20vw; left: 0vw;
+    height: 40vh; bottom: 0vh;
+    padding-left: 1vw; padding-bottom: 1vh;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+#player-stats.hidden{
+    display: none;
 }
 #player-stat-name{
     margin:  0;

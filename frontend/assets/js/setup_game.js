@@ -1,6 +1,6 @@
 // global vars
-var syg_name = localStorage.getItem("syg_name");
-var syg_room_num = localStorage.getItem("syg_room_num");
+var syg_name = sessionStorage.getItem("syg_name");
+var syg_room_num = sessionStorage.getItem("syg_room_num");
 var syg_role = "";
 
 var latest_move_dict = {};
