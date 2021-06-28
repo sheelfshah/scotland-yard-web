@@ -2,7 +2,10 @@ function role_to_name(role){
   if (role.slice(0, 3) === "mrx"){
     return "MrX " + role.slice(5);
   }
-  return "Detective" + role[3]+ " " + role.slice(5); 
+  else if(role.slice(0, 3) === "det") {
+    return "Detective" + role[3]+ " " + role.slice(5); 
+  }
+  return "Error"
 }
 
 function play_move() {
@@ -24,7 +27,7 @@ function play_move() {
 }
 
 function update_game() {
-  // temporary
+  show_stats(game_state.current_playing);
   console.log("game updated");
 }
 
@@ -32,7 +35,6 @@ function goto(station){
   var gotox = sc[station.toString()]["x"]*factor;
   var gotoy = sc[station.toString()]["y"]*factor;
   var mapdiv = document.getElementById("map-div");
-  var $mapdiv = $("#map-div");
   gotox -= $mapdiv.width() / 2;
   gotoy -= $mapdiv.height() / 2;
   mapdiv.scrollTo(gotox, gotoy);
@@ -42,8 +44,14 @@ $("#recenter").click(function() {
   goto(game_state[syg_role].position);
 });
 
+$("#player-stat-position").click(function(){
+  goto(parseInt($(this).text()));
+});
+
 function show_stats(role){
   $("#player-stat-name").text(role_to_name(role));
+  $("#player-stat-name").removeClass("glow");
+  if(role===syg_role) $("#player-stat-name").addClass("glow");
   $("#player-stat-name").css("color", game_state[role].color);
 
   $("#player-stat-position").text(""); // clear first
@@ -74,7 +82,11 @@ function show_stats(role){
 
 socket.onmessage = function(e) {
   const data = JSON.parse(e.data);
-  if(data.purpose==="setup_client"){syg_role=data.who; return;}
+  if(data.purpose==="setup_client"){
+    syg_role=data.who;
+    console.log("setup done")
+    return;
+  }
   else if(data.purpose==="move_reply"){
     if(data.success){
       if(data.move_dict===latest_move_dict){

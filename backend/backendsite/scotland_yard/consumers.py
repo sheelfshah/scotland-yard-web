@@ -138,11 +138,11 @@ class GameConsumer(WebsocketConsumer):
             name = text_data_json["name"]
             try:
                 self.role = self.game.add_player(name)
-                self.game_update_event()
             except:
                 self.close(code=3002)
             print(self.role)
             self.setup_client()
+            self.game_update_event()
             return
 
         if purpose == "play_move":

@@ -27,20 +27,36 @@ $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position
 });
 
 function scale_stuff(scale) {
-    $mapimg.height($mapimg.height()*scale);
-    $mapimg.width($mapimg.width()*scale);
-    canvas.height = $mapimg.height();
-    canvas.width = $mapimg.width();
-    factor = factor * scale;
-    //redraw circles
+    if(factor*scale<=1.7 && factor*scale>=0.4){
+        $mapimg.height($mapimg.height()*scale);
+        $mapimg.width($mapimg.width()*scale);
+        canvas.height = $mapimg.height();
+        canvas.width = $mapimg.width();
+        factor = factor * scale;
+        //redraw circles
+    }
 }
 
 $("#zoom-in").click(function () {
-    scale_stuff(1.15);
+    var timesRun = 0;
+    var scale_loop = setInterval(function(){
+        timesRun += 1;
+        if(timesRun >= 10){
+            clearInterval(scale_loop);
+        }
+        scale_stuff(1.01);
+    }, 25);
 });
 
 $("#zoom-out").click(function () {
-    scale_stuff(0.8696);
+    var timesRun = 0;
+    var scale_loop = setInterval(function(){
+        timesRun += 1;
+        if(timesRun >= 10){
+            clearInterval(scale_loop);
+        }
+        scale_stuff(0.99);
+    }, 25);
 });  
 
 $("#toggle-fullscreen").click(function (){

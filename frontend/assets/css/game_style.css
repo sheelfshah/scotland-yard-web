@@ -1,4 +1,11 @@
 /* General */
+@font-face {
+  font-family: 'gamefont';
+  src: url('../Supercell-Magic_5.ttf');
+}
+*{
+    font-family: 'gamefont';
+}
 body{
     background-color: #2A3139;
 }
@@ -9,6 +16,7 @@ body{
     width: 75vw; right: 0vw;
     height: 90vh; bottom: 0vh;
     overflow: scroll;
+    scroll-behavior: smooth;
 }
 #map-canvas{
     padding: 0;
@@ -38,6 +46,9 @@ body{
     width: 4vh;
     z-index: 20;
 }
+.map-button:hover{
+    cursor: pointer;
+}
 .map-button:nth-child(1){margin-left: 1vh;}
 .map-button:nth-child(2){margin-left: 7vh;}
 .map-button:nth-child(3){margin-left: 13vh;}
@@ -46,28 +57,47 @@ body{
 /* Stats styling */
 #player-stats{
     position: absolute;
-    width:  20vw; left: 0vw;
-    height: 40vh; bottom: 0vh;
-    padding-left: 1vw; padding-bottom: 1vh;
+    width:  23vw; left: 0vw;
+    height: 43vh; bottom: 0vh;
+    padding-left: 1vw; padding-right: 1vw;
+    padding-top: 2vh; padding-bottom: 1vh;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.3), 
+      rgba(40,40,40, 0.3)
+    );
+    overflow: auto;
 }
 #player-stats.hidden{
     display: none;
 }
 #player-stat-name{
     margin:  0;
+    margin-bottom: 1vh;
     text-align: center;
-    font-size: 2.4vw;
+    font-size: 1.7vw;
+}
+#player-stat-name.glow{
+    -webkit-animation: glow 2s ease-in-out infinite alternate;
+    -moz-animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 2s ease-in-out infinite alternate;
 }
 #player-stat-position{
     margin-top:  0;
-    margin-bottom:  3vh;
+    margin-bottom:  1.6vh;
     text-align: center;
-    font-size: 3vw;
+    font-size: 2.4vw;
     color: white;
+    cursor: pointer;
 }
 #player-stat-tokens td{
     text-align: center;
-    font-size: 2.4vw;
+    font-size: 1.7vw;
+}
+
+@-webkit-keyframes glow {
+  to {
+    text-shadow: 0 0 2px #eeee, 0 0 5px #dddd, 0 0 7px #bbbb, 0 0 10px #999;
+  }
 }
