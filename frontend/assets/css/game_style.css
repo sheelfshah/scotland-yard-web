@@ -18,6 +18,18 @@ body{
     overflow: scroll;
     scroll-behavior: smooth;
 }
+#map-div::-webkit-scrollbar {
+  width: 1vw;
+}
+#map-div::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+#map-div::-webkit-scrollbar-thumb {
+  background: #888;
+}
+#map-div::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 #map-canvas{
     padding: 0;
     margin: 0;
@@ -35,7 +47,7 @@ body{
 }
 .map-button{
     position: fixed;
-    z-index: 20;
+    z-index: 2;
     margin-top: 1vh;
     padding: 0;
     background-color: transparent;
@@ -44,7 +56,7 @@ body{
 .map-button img{
     height: 4vh;
     width: 4vh;
-    z-index: 20;
+    z-index: 2;
 }
 .map-button:hover{
     cursor: pointer;
@@ -54,11 +66,26 @@ body{
 .map-button:nth-child(3){margin-left: 13vh;}
 .map-button:nth-child(4){margin-left: 19vh;}
 
+/* ................................ */
+
 /* Stats styling */
 #player-stats{
     position: absolute;
-    width:  23vw; left: 0vw;
-    height: 43vh; bottom: 0vh;
+    width:  25vw; left: 0vw;
+    max-height: 26vw; bottom: 0vh;
+    z-index:  2;
+}
+
+#toggle-stats{
+    position: relative; top: 0;
+    width: 2vw; left: 2px;
+    cursor: pointer;
+}
+#toggle-stats.minimized{
+    margin-bottom: 1vw;
+}
+#player-stat-content{
+    position: relative;
     padding-left: 1vw; padding-right: 1vw;
     padding-top: 2vh; padding-bottom: 1vh;
     backdrop-filter: blur(8px);
@@ -67,13 +94,35 @@ body{
       rgba(0, 0, 0, 0.3), 
       rgba(40,40,40, 0.3)
     );
+    max-height: 24vw; min-height: 10vw;
     overflow: auto;
 }
-#player-stats.hidden{
-    display: none;
+#player-stat-heading{
+    display: flex;
+    justify-content: center;
 }
+
+.stat-button{
+    cursor: pointer;
+}
+.stat-button img{
+    width: 2vw;
+}
+#prev-stat{
+    position: absolute;
+    top: 0;
+    left:  2px;
+}
+#next-stat{
+    position: absolute;
+    top: 0;
+    right:  2px;
+}
+
 #player-stat-name{
-    margin:  0;
+    display: inline-block;
+    margin:  0 auto;
+    max-width: 21vw;
     margin-bottom: 1vh;
     text-align: center;
     font-size: 1.7vw;
@@ -101,3 +150,4 @@ body{
     text-shadow: 0 0 2px #eeee, 0 0 5px #dddd, 0 0 7px #bbbb, 0 0 10px #999;
   }
 }
+/* ..........................  */

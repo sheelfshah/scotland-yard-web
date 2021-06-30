@@ -3,7 +3,6 @@ run redis: docker run -p 6379:6379 -d redis:5
 run server: python3 manage.py runserver 0.0.0.0:8000
 
 todo:
-    make stat hideable
     do waiting lobby
     decide structure and features
     implement

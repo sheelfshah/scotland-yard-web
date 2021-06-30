@@ -2,6 +2,9 @@
 # assign positions, move characters
 from .game_players import *
 import random
+from pathlib import Path
+
+backendsite_dir = Path(__file__).resolve().parent.parent
 
 class ScotlandYardGame:
 
@@ -11,7 +14,7 @@ class ScotlandYardGame:
             "mrx0", "det1", "det2",
             "det3",  "det4",  "det5"]
         self.total_roles = len(self.available_roles)
-        with open("assets/utilities.min.json") as f:
+        with open(backendsite_dir / "assets/utilities.min.json") as f:
             utilities = json.load(f)
 
         start_positions = random.sample(utilities["start_positions"], self.total_roles)

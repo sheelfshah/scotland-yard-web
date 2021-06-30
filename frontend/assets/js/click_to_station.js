@@ -36,39 +36,3 @@ function scale_stuff(scale) {
         //redraw circles
     }
 }
-
-$("#zoom-in").click(function () {
-    var timesRun = 0;
-    var scale_loop = setInterval(function(){
-        timesRun += 1;
-        if(timesRun >= 10){
-            clearInterval(scale_loop);
-        }
-        scale_stuff(1.01);
-    }, 25);
-});
-
-$("#zoom-out").click(function () {
-    var timesRun = 0;
-    var scale_loop = setInterval(function(){
-        timesRun += 1;
-        if(timesRun >= 10){
-            clearInterval(scale_loop);
-        }
-        scale_stuff(0.99);
-    }, 25);
-});  
-
-$("#toggle-fullscreen").click(function (){
-    if($mapdiv.width()/$(window).width() >= 0.8){
-        $mapdiv.width("75vw");
-        $mapdiv.height("90vh");
-        var new_src = $($(this).children()[0]).attr("src").replace("compress", "expand");
-        $($(this).children()[0]).attr("src", new_src);
-        return;
-    }
-    $mapdiv.width("100vw");
-    $mapdiv.height("100vh");
-    var new_src = $($(this).children()[0]).attr("src").replace("expand", "compress");
-    $($(this).children()[0]).attr("src", new_src);
-});
