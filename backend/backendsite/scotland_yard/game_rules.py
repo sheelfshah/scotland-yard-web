@@ -79,6 +79,7 @@ class ScotlandYardGame:
         state["current_playing"] = self.current_playing.role
         state["num_players"] = self.total_roles - len(self.available_roles)
         self.game_state = state
+        # game state keys can't have number in 3rd index
         self.update_game_for_consumers()
 
     def move_completed(self):

@@ -25,8 +25,17 @@
         <img id="map-img" src="{% static 'img/map.png' %}">
         <canvas id="map-canvas"></canvas>
     </div>
+    <div id="mrx-stats">
+        <img id="toggle-mrx-stats" src="{% static 'svg/minus-square-regular.svg' %}" alt="Toggle Info">
+        <div id="mrx-stat-content">
+            <h3 id="rounds-played"></h3>
+            <h3 id="mrx-last-transport"></h3>
+            <h3 id="mrx-last-seen"></h3>
+            <h3 id="next-reveal-in"></h3>
+        </div>
+    </div>
     <div id="player-stats">
-        <img id="toggle-stats" src="{% static 'svg/minus-square-regular.svg' %}" alt="Next">
+        <img id="toggle-stats" src="{% static 'svg/minus-square-regular.svg' %}" alt="Toggle Stats">
         <div id="player-stat-content">
         <div id="player-stat-heading">
             <div id="prev-stat" class="stat-button">

@@ -96,6 +96,8 @@ body{
     );
     max-height: 24vw; min-height: 10vw;
     overflow: auto;
+    isplay: flex;
+    justify-content: center;
 }
 #player-stat-heading{
     display: flex;
@@ -122,10 +124,10 @@ body{
 #player-stat-name{
     display: inline-block;
     margin:  0 auto;
-    max-width: 21vw;
+    max-width: 19vw;
     margin-bottom: 1vh;
     text-align: center;
-    font-size: 1.7vw;
+    font-size: 1.5vw;
 }
 #player-stat-name.glow{
     -webkit-animation: glow 2s ease-in-out infinite alternate;
@@ -136,18 +138,74 @@ body{
     margin-top:  0;
     margin-bottom:  1.6vh;
     text-align: center;
-    font-size: 2.4vw;
+    font-size: 2.2vw;
     color: white;
     cursor: pointer;
 }
 #player-stat-tokens td{
     text-align: center;
-    font-size: 1.7vw;
+    font-size: 1.5vw;
 }
 
 @-webkit-keyframes glow {
   to {
     text-shadow: 0 0 2px #eeee, 0 0 5px #dddd, 0 0 7px #bbbb, 0 0 10px #999;
   }
+}
+/* ..........................  */
+
+/* MrX stats styling */
+#mrx-stats{
+    position: absolute;
+    width:  25vw; left: 0vw;
+    max-height: calc(100vh - 35vw); bottom: 28vw;
+    z-index:  2;
+}
+
+#toggle-mrx-stats{
+    position: relative; top: 0;
+    width: 2vw; left: 2px;
+    cursor: pointer;
+}
+#mrx-stat-content{
+    position: relative;
+    padding-left: 1vw; padding-right: 1vw;
+    padding-top: 2vh; padding-bottom: 1vh;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.3), 
+      rgba(40,40,40, 0.3)
+    );
+    min-height: 10vw;
+    overflow: auto;
+}
+
+#rounds-played{
+    max-width: 21vw;
+    margin-bottom: 1.3vh;
+    text-align: left;
+    font-size: 2.7vh;
+}
+#mrx-last-transport{
+    margin-top:  0;
+    margin-bottom:  1.3vh;
+    text-align: left;
+    font-size: 2.5vh;
+    color: white;
+}
+#mrx-last-seen{
+    margin-top:  0;
+    margin-bottom:  1.3vh;
+    text-align: left;
+    font-size: 2.5vh;
+    color: white;
+    cursor: pointer;
+}
+#next-reveal-in{
+    margin-top:  0;
+    text-align: left;
+    font-size: 2.5vh;
+    color: white;
 }
 /* ..........................  */

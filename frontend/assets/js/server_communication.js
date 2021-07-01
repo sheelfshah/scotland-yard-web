@@ -18,6 +18,7 @@ function play_move() {
 
 function update_game() {
   show_stats(game_state.current_playing);
+  show_mrx_stats();
   console.log("game updated");
 }
 

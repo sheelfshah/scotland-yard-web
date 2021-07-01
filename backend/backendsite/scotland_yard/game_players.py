@@ -72,7 +72,7 @@ class MrX(Player):
         self.last_public_position = None
         self.moves_played = 0
         self.last_transport_used = None
-        self.reveal_times = [3, 8, 13, 18, 24]
+        self.reveal_times = [1, 3, 8, 13, 18, 24]
 
     def to_json(self):
         ans = {}
@@ -80,6 +80,7 @@ class MrX(Player):
         ans["position"] = self.position
         ans["tokens"] = self.tokens
         ans["moves_played"] = self.moves_played
+        ans["reveal_times"] = self.reveal_times
         ans["last_transport_used"] = self.last_transport_used
         ans["last_public_position"] = self.last_public_position
         return ans

@@ -2,7 +2,7 @@
 var syg_name = sessionStorage.getItem("syg_name");
 var syg_room_num = sessionStorage.getItem("syg_room_num");
 var syg_role = "";
-var current_stat_role="";
+var current_stats_role = "";
 
 var latest_move_dict = {};
 var game_state={};

@@ -8,17 +8,20 @@ function role_to_name(role){
   return "Error"
 }
 
-function get_next_role(role, prev){
-  if(!role) role = current_stats_role;
+function get_player_name(index){
   keys = Object.keys(game_state);
-  roll_no = parseInt(role[3]);
-  console.log(roll_no, role);
-  if(prev) roll_no = ((roll_no - 1)%6 + 6) % 6;
-  else roll_no = (roll_no + 1)%6;
   for(var key in keys){
-    if(keys[key][3]==roll_no) return keys[key];
+    if(keys[key][3]==index) return keys[key];
   }
   return "Error";
+}
+
+function get_next_role(role, prev){
+  if(!role) role = current_stats_role;
+  roll_no = parseInt(role[3]);
+  if(prev) roll_no = ((roll_no - 1)%6 + 6) % 6;
+  else roll_no = (roll_no + 1)%6;
+  return get_player_name(roll_no);
 }
 
 function show_stats(role){
@@ -53,4 +56,44 @@ function show_stats(role){
   }
   tokens_div.innerHTML = "";
   tokens_div.appendChild(table);
+}
+
+function show_mrx_stats(){
+  var mrx_role = get_player_name(0);
+
+  var rounds_played = game_state[mrx_role].moves_played;
+  $("#rounds-played").text(
+    "Round: " + rounds_played);
+  var src = [0x22, 0xdd, 0x22], dest = [0xff, 0x6b, 0x5b], steps = 24;
+  var col_array = [];
+  for (var i = 0; i < src.length; i++) {
+    var lambda = rounds_played/steps;
+    col_array[i] = src[i]*(1-lambda) + dest[i]*lambda;
+  }
+  $("#rounds-played").css("color",
+    "rgb("+col_array+")");
+
+  var last_transport = game_state[mrx_role].last_transport_used;
+  if(last_transport)
+    $("#mrx-last-transport").text("MrX used " + last_transport);
+  else $("#mrx-last-transport").text("MrX hasn't moved yet");
+
+  var last_seen = game_state[mrx_role].last_public_position;
+  if(last_seen)
+    $("#mrx-last-seen").text("MrX was last seen at " + last_seen);
+  else $("#mrx-last-seen").text("MrX hsn't been spotted yet");
+  
+  var reveal_times = game_state[mrx_role].reveal_times;
+  var pre_reveal_time = 0;
+  for (var i = 0; i < reveal_times.length; i++) {
+    // assumes reveal_times is sorted
+    if(rounds_played<reveal_times[i]){
+      pre_reveal_time = reveal_times[i] - rounds_played;
+      break;
+    }
+    pre_reveal_time = 0;
+  }
+  if(pre_reveal_time)
+    $("#next-reveal-in").text("MrX will be spotted in " + pre_reveal_time + " rounds");
+  else $("#next-reveal-in").text("MrX won't be spotted now");
 }

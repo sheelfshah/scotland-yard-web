@@ -1,0 +1,42 @@
+#move-panel{
+    width: 40vw;
+}
+#move-panel *{
+    background-color: #0008;
+    width: 100% !important;
+}
+.selectize-input input{
+    color: #fff;
+}
+.selectize-control .optgroup{
+    border-bottom: solid #aaa;
+    border-bottom-width: 90%;
+}
+.selectize-control .optgroup-header{
+    color: #fff;
+    font-size: 2vw;
+}
+.selectize-control .option{
+    font-size: 1.5vw;
+    padding-left: 100px;
+}
+/*
+"taxi": "#f6e64e", "bus": "#2EA49B",
+    "underground": "#F24736", "double": "#22dd22",
+    "blackticket": "#000000"
+    */
+.selectize-control .option.taxi{
+    color: #f6e64e;
+}
+.selectize-control .option.bus{
+    color: #2EA49B;
+}
+.selectize-control .option.underground{
+    color: #F24736;
+}
+.selectize-control .option.double{
+    color: #22dd22;
+}
+.selectize-control .option.blackticket{
+    color: #8a8a8a;
+}

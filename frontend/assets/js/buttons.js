@@ -49,16 +49,35 @@ $("#toggle-stats").click(function (){
     });
 });
 
-$("#recenter").click(function() {
-  goto(game_state[syg_role].position);
+$("#toggle-mrx-stats").click(function (){
+    if(!$("#mrx-stat-content").is(':visible')){
+        $("#mrx-stat-content").fadeIn(500);
+        var new_src = $("#toggle-mrx-stats").attr("src").replace("plus", "minus");
+        $("#toggle-mrx-stats").attr("src", new_src);
+        $("#toggle-mrx-stats").removeClass("minimized");
+        return;
+    }
+    $("#mrx-stat-content").fadeOut(500, function(){
+        var new_src = $("#toggle-mrx-stats").attr("src").replace("minus", "plus");
+        $("#toggle-mrx-stats").attr("src", new_src);
+        $("#toggle-mrx-stats").addClass("minimized");
+    });
 });
 
+$("#recenter").click(function() {
+    goto(game_state[syg_role].position);
+});
 $("#player-stat-position").click(function(){
-  goto(parseInt($(this).text()));
+    goto(parseInt($(this).text()));
+});
+$("#mrx-last-seen").click(function(){
+    var last_seen = parseInt($(this).text().replace(/\D/g, ""));
+    if(last_seen)
+        goto(last_seen);
 });
 
 $("#prev-stat").click(function(){
-  show_stats(get_next_role("", true));
+    show_stats(get_next_role("", true));
 });
 
 $("#next-stat").click(function(){
