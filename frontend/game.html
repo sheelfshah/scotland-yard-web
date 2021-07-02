@@ -5,8 +5,11 @@
 <head>
     <meta charset="utf-8">
     <title>Scotland Yard</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/game_style.css' %}">
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/selectize.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/selectize.css' %}" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/game_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/move_panel_style.css' %}" crossorigin="anonymous" />
 </head>
 <body>
     <div id="map-div">
@@ -25,6 +28,7 @@
         <img id="map-img" src="{% static 'img/map.png' %}">
         <canvas id="map-canvas"></canvas>
     </div>
+
     <div id="mrx-stats">
         <img id="toggle-mrx-stats" src="{% static 'svg/minus-square-regular.svg' %}" alt="Toggle Info">
         <div id="mrx-stat-content">
@@ -50,6 +54,13 @@
         <div id="player-stat-tokens"></div>
         </div>
     </div>
+
+    <div id="move-panel" class="hidden">
+        <select id="move-select">
+        </select>
+    </div>
+
+    <div id="status"></div>
     
 <script src="{% static 'data/station_coordinates.js' %}"></script>
 <script src="{% static 'data/station_neighbors.js' %}"></script>
@@ -58,6 +69,7 @@
 <script src="{% static 'js/stats.js' %}"></script>
 <script src="{% static 'js/server_communication.js' %}"></script>
 <script src="{% static 'js/click_to_station.js' %}"></script>
+<script src="{% static 'js/move_handling.js' %}"></script>
 <script src="{% static 'js/buttons.js' %}"></script>
 </body>
 </html>

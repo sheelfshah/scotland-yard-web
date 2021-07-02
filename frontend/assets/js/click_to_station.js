@@ -1,3 +1,8 @@
+/*
+click event handler of $mapcanvas
+cale_stuff(scale);
+*/
+
 $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position 
         var posX_parent = $(this).parent().position().left,
             posY_parent = $(this).parent().position().top,

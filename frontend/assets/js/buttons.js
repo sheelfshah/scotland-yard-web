@@ -1,3 +1,14 @@
+/*
+button actions of:
+#zoom-in, #zoom-out
+#toggle-fullscreen
+#toggle-stats
+#toggle-mrx-stats
+#recenter
+#player-stat-position, #mrx-last-seen
+#prev-stat, #next-stat
+*/
+
 $("#zoom-in").click(function () {
     var timesRun = 0;
     var scale_loop = setInterval(function(){

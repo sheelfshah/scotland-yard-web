@@ -10,6 +10,7 @@ var game_state={};
 var $mapdiv = $("#map-div");
 var $mapimg = $("#map-img");
 var $mapcanvas = $('#map-canvas');
+var $select = null;
 
 var canvas = document.getElementById("map-canvas");
 var ctx = canvas.getContext("2d");
@@ -24,6 +25,10 @@ window.onload = function() {
   });
   canvas.height = $mapimg.height();
   canvas.width = $mapimg.width();
+};
+
+window.onbeforeunload = function() {
+  return "Leaving a game midway is not good for health";
 };
 
 if((!syg_name)||(!syg_room_num)){
@@ -55,3 +60,5 @@ socket.addEventListener('open', function (event) {
 socket.addEventListener('close', function (event) {
   console.log("Socket closed " + event.code);
 });
+
+$("#status").fadeOut(30);

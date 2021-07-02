@@ -146,8 +146,9 @@ class ScotlandYardGame:
                     return True
                 self.current_playing.move(p1, t1, self.mrx)
                 return True
-        except:
+        except Exception as e:
             # move_dict does not have required properties
+            print(e)
             return False
         
 

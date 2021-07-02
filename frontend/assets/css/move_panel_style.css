@@ -1,16 +1,25 @@
 #move-panel{
-    width: 40vw;
+    position: absolute;
+    top: 0; right: 0;
+    width: 40vw; max-height: 50vh;
 }
 #move-panel *{
     background-color: #0008;
     width: 100% !important;
+    z-index: 2;
 }
+#move-panel.hidden *{
+    display: none;
+}
+
+.selectize-dropdown-content {
+    max-height: 40vh;
+ }
 .selectize-input input{
     color: #fff;
 }
 .selectize-control .optgroup{
-    border-bottom: solid #aaa;
-    border-bottom-width: 90%;
+    padding-top: 5px;
 }
 .selectize-control .optgroup-header{
     color: #fff;
@@ -18,7 +27,9 @@
 }
 .selectize-control .option{
     font-size: 1.5vw;
-    padding-left: 100px;
+    padding-left: 3vw;
+    max-width: 35vw;
+    line-height: 1.6vw;
 }
 /*
 "taxi": "#f6e64e", "bus": "#2EA49B",

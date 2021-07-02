@@ -129,11 +129,6 @@ body{
     text-align: center;
     font-size: 1.5vw;
 }
-#player-stat-name.glow{
-    -webkit-animation: glow 2s ease-in-out infinite alternate;
-    -moz-animation: glow 2s ease-in-out infinite alternate;
-    animation: glow 2s ease-in-out infinite alternate;
-}
 #player-stat-position{
     margin-top:  0;
     margin-bottom:  1.6vh;
@@ -145,12 +140,6 @@ body{
 #player-stat-tokens td{
     text-align: center;
     font-size: 1.5vw;
-}
-
-@-webkit-keyframes glow {
-  to {
-    text-shadow: 0 0 2px #eeee, 0 0 5px #dddd, 0 0 7px #bbbb, 0 0 10px #999;
-  }
 }
 /* ..........................  */
 
@@ -209,3 +198,15 @@ body{
     color: white;
 }
 /* ..........................  */
+
+#status{
+    position: absolute;
+    bottom: 0; right: 0;
+    padding: 10px;
+    font-size: 2vw;
+    max-width:  30vw;
+    z-index: 2;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: black;
+}

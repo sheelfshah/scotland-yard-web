@@ -1,13 +1,19 @@
-function play_move() {
-  // temporary
-  move_dict={
-    "role": syg_role,
-    "is_double": false,
-    "next_position": 8,
-    "transport": "taxi",
-    "next_to_next_position": null,
-    "next_transport": null
-  }
+/*
+status_update(mssg, duration);
+play_move(move_dict);
+update_game();
+goto(station);
+socket onmessage handler
+*/
+
+function status_update(mssg, duration) {
+  $("#status").fadeIn(100);
+  $("#status").text(mssg);
+  setTimeout(function() {
+    $("#status").fadeOut(100)}, duration);
+}
+
+function play_move(move_dict) {
   latest_move_dict = JSON.parse(JSON.stringify(move_dict));
   socket.send(JSON.stringify({
     'purpose': "play_move",
@@ -19,6 +25,8 @@ function play_move() {
 function update_game() {
   show_stats(game_state.current_playing);
   show_mrx_stats();
+  if (game_state.current_playing === syg_role)
+    show_move_panel();
   console.log("game updated");
 }
 
@@ -40,6 +48,7 @@ socket.onmessage = function(e) {
   }
   else if(data.purpose==="move_reply"){
     if(data.success){
+      hide_move_panel();
       if(data.move_dict===latest_move_dict){
         console.log("Move played");
         return;
@@ -47,7 +56,7 @@ socket.onmessage = function(e) {
       console.log("Wrong move played... oops");
       return;
     }
-    alert("The move is invalid, try some other move");
+    status_update("The move is invalid, try some other move", 2000);
     return;
   }
   else if(data.purpose==="game_update"){
@@ -57,7 +66,7 @@ socket.onmessage = function(e) {
   }
   else if(data.purpose==="game_end"){
     reason = data.reason;
-    alert(reason);
+    status_update(reason, 10000);
     return;
   }
 }

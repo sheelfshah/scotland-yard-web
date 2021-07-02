@@ -72,7 +72,7 @@ class MrX(Player):
         self.last_public_position = None
         self.moves_played = 0
         self.last_transport_used = None
-        self.reveal_times = [1, 3, 8, 13, 18, 24]
+        self.reveal_times = [3, 8, 13, 18, 24]
 
     def to_json(self):
         ans = {}
@@ -126,7 +126,8 @@ def check_validity(player, position1, position2, transport, stations_dict):
 
 def check_double_validity(player, p1, p2, p3, t1, t2, stations_dict):
     if player.check_double(t1, t2):
-        return check_validity(p1, p2, t1, stations_dict) and check_validity(p2, p3, t2, stations_dict)
+        return check_validity(player, p1, p2, t1, stations_dict) and\
+            check_validity(player, p2, p3, t2, stations_dict)
     return False
 
 

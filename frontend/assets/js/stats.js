@@ -1,3 +1,11 @@
+/*
+role_to_name(role);
+get_player_name(index); // return role
+get_next_role(role, prev); // prev is bool
+show_stats(role)
+show_mrx_stats();
+*/
+
 function role_to_name(role){
   if (role.slice(0, 3) === "mrx"){
     return "MrX " + role.slice(5);
@@ -26,9 +34,6 @@ function get_next_role(role, prev){
 
 function show_stats(role){
   $("#player-stat-name").text(role_to_name(role));
-  $("#player-stat-name").removeClass("glow");
-  if(role===game_state.current_playing)
-    $("#player-stat-name").addClass("glow");
   $("#player-stat-name").css("color", game_state[role].color);
   current_stats_role = role;
 
