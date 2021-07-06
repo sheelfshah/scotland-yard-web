@@ -1,17 +1,9 @@
 /*
-status_update(mssg, duration);
 play_move(move_dict);
 update_game();
 goto(station);
 socket onmessage handler
 */
-
-function status_update(mssg, duration) {
-  $("#status").fadeIn(100);
-  $("#status").text(mssg);
-  setTimeout(function() {
-    $("#status").fadeOut(100)}, duration);
-}
 
 function play_move(move_dict) {
   latest_move_dict = JSON.parse(JSON.stringify(move_dict));
@@ -23,6 +15,9 @@ function play_move(move_dict) {
 }
 
 function update_game() {
+  if(game_state.num_players < 1)
+    show_waiting_lobbby();
+  else hide_waiting_lobby();
   show_stats(game_state.current_playing);
   show_mrx_stats();
   if (game_state.current_playing === syg_role)
@@ -49,7 +44,8 @@ socket.onmessage = function(e) {
   else if(data.purpose==="move_reply"){
     if(data.success){
       hide_move_panel();
-      if(data.move_dict===latest_move_dict){
+      if(JSON.stringify(data.move_dict) ===
+          JSON.stringify(latest_move_dict)){
         console.log("Move played");
         return;
       }

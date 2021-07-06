@@ -88,16 +88,14 @@ body{
     position: relative;
     padding-left: 1vw; padding-right: 1vw;
     padding-top: 2vh; padding-bottom: 1vh;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     background: linear-gradient(
-      rgba(0, 0, 0, 0.3), 
-      rgba(40,40,40, 0.3)
+      rgba(0, 0, 0, 0.6), 
+      rgba(20, 20, 20, 0.7)
     );
     max-height: 24vw; min-height: 10vw;
     overflow: auto;
-    isplay: flex;
-    justify-content: center;
 }
 #player-stat-heading{
     display: flex;
@@ -160,11 +158,11 @@ body{
     position: relative;
     padding-left: 1vw; padding-right: 1vw;
     padding-top: 2vh; padding-bottom: 1vh;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     background: linear-gradient(
-      rgba(0, 0, 0, 0.3), 
-      rgba(40,40,40, 0.3)
+      rgba(0, 0, 0, 0.6), 
+      rgba(40,40,40, 0.6)
     );
     min-height: 10vw;
     overflow: auto;
@@ -181,6 +179,7 @@ body{
     margin-bottom:  1.3vh;
     text-align: left;
     font-size: 2.5vh;
+    line-height: 2.8vh;
     color: white;
 }
 #mrx-last-seen{
@@ -188,6 +187,7 @@ body{
     margin-bottom:  1.3vh;
     text-align: left;
     font-size: 2.5vh;
+    line-height: 2.8vh;
     color: white;
     cursor: pointer;
 }
@@ -195,6 +195,7 @@ body{
     margin-top:  0;
     text-align: left;
     font-size: 2.5vh;
+    line-height: 2.8vh;
     color: white;
 }
 /* ..........................  */
@@ -206,7 +207,7 @@ body{
     font-size: 2vw;
     max-width:  30vw;
     z-index: 2;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: black;
 }

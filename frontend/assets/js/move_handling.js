@@ -92,12 +92,13 @@ function show_move_panel() {
       });
     }
   }
-  selectize.refreshOptions();
+  selectize.refreshOptions(false);
   selectize.on('item_add', function(value, $item) {
-    // todo
-    var move_dict = JSON.parse(value);
-    console.log(move_dict);
-    play_move(move_dict);
+    if(value && (value != JSON.stringify(latest_move_dict))){
+      var move_dict = JSON.parse(value);
+      console.log(move_dict);
+      play_move(move_dict);
+    }
     selectize.clear();
   });
 }

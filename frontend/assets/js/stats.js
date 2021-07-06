@@ -1,10 +1,18 @@
 /*
+status_update(mssg, duration);
 role_to_name(role);
 get_player_name(index); // return role
 get_next_role(role, prev); // prev is bool
 show_stats(role)
 show_mrx_stats();
 */
+
+function status_update(mssg, duration) {
+  $("#status").fadeIn(100);
+  $("#status").text(mssg);
+  setTimeout(function() {
+    $("#status").fadeOut(100)}, duration);
+}
 
 function role_to_name(role){
   if (role.slice(0, 3) === "mrx"){
@@ -17,7 +25,7 @@ function role_to_name(role){
 }
 
 function get_player_name(index){
-  keys = Object.keys(game_state);
+  var keys = Object.keys(game_state);
   for(var key in keys){
     if(keys[key][3]==index) return keys[key];
   }
@@ -26,7 +34,7 @@ function get_player_name(index){
 
 function get_next_role(role, prev){
   if(!role) role = current_stats_role;
-  roll_no = parseInt(role[3]);
+  var roll_no = parseInt(role[3]);
   if(prev) roll_no = ((roll_no - 1)%6 + 6) % 6;
   else roll_no = (roll_no + 1)%6;
   return get_player_name(roll_no);
@@ -35,7 +43,7 @@ function get_next_role(role, prev){
 function show_stats(role){
   $("#player-stat-name").text(role_to_name(role));
   $("#player-stat-name").css("color", game_state[role].color);
-  current_stats_role = role;
+  current_stats_role = role; // global
 
   $("#player-stat-position").text(""); // clear first
   $("#player-stat-position").text(game_state[role].position);
@@ -50,7 +58,7 @@ function show_stats(role){
   }
   for (var key in tokens) {
     if(tokens[key]>0){ // don't show tokens one doesn't have
-      trow = table.insertRow(-1);
+      var trow = table.insertRow(-1);
       var cell = trow.insertCell(-1);
       cell.innerHTML = key;
       cell.style.color = token_color[key];
@@ -82,22 +90,26 @@ function show_mrx_stats(){
   if(last_transport)
     $("#mrx-last-transport").text("MrX used " + last_transport);
   else $("#mrx-last-transport").text("MrX hasn't moved yet");
-
-  var last_seen = game_state[mrx_role].last_public_position;
-  if(last_seen)
-    $("#mrx-last-seen").text("MrX was last seen at " + last_seen);
-  else $("#mrx-last-seen").text("MrX hsn't been spotted yet");
   
   var reveal_times = game_state[mrx_role].reveal_times;
-  var pre_reveal_time = 0;
+  var pre_reveal_time = 0, post_reveal_time = 0;
   for (var i = 0; i < reveal_times.length; i++) {
     // assumes reveal_times is sorted
     if(rounds_played<reveal_times[i]){
       pre_reveal_time = reveal_times[i] - rounds_played;
+      if(i > 0){
+        post_reveal_time = rounds_played - reveal_times[i-1];
+      }
       break;
     }
     pre_reveal_time = 0;
   }
+var last_seen = game_state[mrx_role].last_public_position;
+  if(last_seen)
+    $("#mrx-last-seen").text("MrX was last seen at " + last_seen
+      + ", " + post_reveal_time + " rounds ago");
+  else $("#mrx-last-seen").text("MrX hsn't been spotted yet");
+
   if(pre_reveal_time)
     $("#next-reveal-in").text("MrX will be spotted in " + pre_reveal_time + " rounds");
   else $("#next-reveal-in").text("MrX won't be spotted now");

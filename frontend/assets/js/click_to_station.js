@@ -21,9 +21,12 @@ $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position
             }
         }
         if(station_clicked<=0) return;
-        path = graph.minimum_token_path(
+        goto(station_clicked);
+        
+        /*path = graph.minimum_token_path(
             game_state[syg_role].position, station_clicked);
-        console.log(path);
+        console.log(path);*/
+
         /*ctx.beginPath();
         ctx.arc(sc[station_clicked.toString()]["x"]*factor, sc[station_clicked.toString()]["y"]*factor,
             23*factor, 0, 2 * Math.PI);
