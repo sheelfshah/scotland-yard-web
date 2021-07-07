@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'gamefont';
+  src: url('../Supercell-Magic_5.ttf');
+}
+*{
+    font-family: 'gamefont';
+}
+
 body {
     width: 100%;
     height: 100%;
@@ -9,6 +17,7 @@ body {
 #title{
     width:  60%;
     position: absolute;
+    padding-top: 20px;
     top: 25%;
     left: 20%;
     background-color: #fff;
@@ -18,14 +27,12 @@ body {
 
 #title h1{
     color: #237;
-    font-family: cursive;
-    font-size: 7vw;
+    font-size: 5vw;
     padding-bottom: 0;
     margin-bottom: 0;
 }
 
 #title h2{
-    font-family: "Times New Roman";
     color: #b01;
     font-size: 20pt;
     font-weight: 800;
@@ -49,7 +56,7 @@ body {
     margin-right: 10%;
     padding: 10px 15px;
     display: inline;
-    font-size: 2vw;
+    font-size: 1.6vw;
     font-weight: 500;
     border-radius: 10px;
     z-index: 1;
@@ -74,7 +81,6 @@ body {
     font-size:  20pt;
     font-weight: bolder;
     text-align: center;
-    font-family: 'Times New Roman';
 }
 
 .input-submit{

@@ -26,16 +26,10 @@ $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position
         /*path = graph.minimum_token_path(
             game_state[syg_role].position, station_clicked);
         console.log(path);*/
-
-        /*ctx.beginPath();
-        ctx.arc(sc[station_clicked.toString()]["x"]*factor, sc[station_clicked.toString()]["y"]*factor,
-            23*factor, 0, 2 * Math.PI);
-        ctx.lineWidth = 4*factor;
-        ctx.stroke();*/
 });
 
 function scale_stuff(scale) {
-    if(factor*scale<=1.7 && factor*scale>=0.4){
+    if(factor*scale<=1.7 && factor*scale>=0.6){
         $mapimg.height($mapimg.height()*scale);
         $mapimg.width($mapimg.width()*scale);
         canvas.height = $mapimg.height();
@@ -43,4 +37,5 @@ function scale_stuff(scale) {
         factor = factor * scale;
         //redraw circles
     }
+    show_circles();
 }

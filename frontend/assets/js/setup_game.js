@@ -59,6 +59,14 @@ socket.addEventListener('open', function (event) {
 
 socket.addEventListener('close', function (event) {
   console.log("Socket closed " + event.code);
+  if(event.code === 69){
+    window.onbeforeunload = function() {return;}
+    setTimeout(function() {
+      alert("GG WP");
+      window.location.href =
+        window.location.href.slice(0, -5).replace("game/", "");
+    }, 5000);
+  }
 });
 
 $("#status").fadeOut(30);

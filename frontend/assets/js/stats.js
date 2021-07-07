@@ -5,6 +5,7 @@ get_player_name(index); // return role
 get_next_role(role, prev); // prev is bool
 show_stats(role)
 show_mrx_stats();
+show_circes();
 */
 
 function status_update(mssg, duration) {
@@ -113,4 +114,47 @@ var last_seen = game_state[mrx_role].last_public_position;
   if(pre_reveal_time)
     $("#next-reveal-in").text("MrX will be spotted in " + pre_reveal_time + " rounds");
   else $("#next-reveal-in").text("MrX won't be spotted now");
+}
+
+function show_circles(){
+  // erase prevous drawings always
+  function draw_circle(station, color){
+    ctx.beginPath();
+    ctx.arc(sc[station.toString()]["x"]*factor, sc[station.toString()]["y"]*factor,
+        23*factor, 0, 2 * Math.PI);
+    ctx.lineWidth = 10*factor;
+    ctx.strokeStyle = color;
+    ctx.stroke();
+  }
+
+  var keys = Object.keys(game_state);
+  for(var key in keys){
+    if([0,1,2,3,4,5].includes(parseInt(keys[key][3]))){
+      if(game_state[keys[key]].position){
+        draw_circle(game_state[keys[key]].position, game_state[keys[key]].color);
+      }
+    }
+  }
+  var mrx_role = get_player_name(0);
+  if(game_state[mrx_role].last_public_position){
+    var station = game_state[mrx_role].last_public_position, base = -0.15;
+    ctx.beginPath();
+    ctx.arc(sc[station.toString()]["x"]*factor, sc[station.toString()]["y"]*factor,
+        23*factor, base * Math.PI, (base + 0.6) * Math.PI);
+    ctx.lineWidth = 10*factor;
+    ctx.strokeStyle = "#333333";
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(sc[station.toString()]["x"]*factor, sc[station.toString()]["y"]*factor,
+        23*factor, (base + 0.66) * Math.PI, (base + 1.26) * Math.PI);
+    ctx.lineWidth = 10*factor;
+    ctx.strokeStyle = "#333333";
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(sc[station.toString()]["x"]*factor, sc[station.toString()]["y"]*factor,
+        23*factor, (base + 1.33) * Math.PI, (base + 1.93) * Math.PI);
+    ctx.lineWidth = 10*factor;
+    ctx.strokeStyle = "#333333";
+    ctx.stroke();
+  }
 }

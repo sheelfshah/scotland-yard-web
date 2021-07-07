@@ -28,6 +28,7 @@ class ScotlandYardGame:
             Detective("det4_name", start_positions[4]),
             Detective("det5_name", start_positions[5])
         ]
+        self.detectives_can_play = [True]*(self.total_roles - 1)
         self.players = [self.mrx] + self.detectives
         self.current_playing = self.mrx
 
@@ -82,22 +83,62 @@ class ScotlandYardGame:
         # game state keys can't have number in 3rd index
         self.update_game_for_consumers()
 
+    def game_ended(self) -> str:
+        #if mrx has same position as a detective
+        for det in self.detectives:
+            if det.position == self.mrx.position:
+                return ("MrX was caught at station %d by detective%s %s"
+                    % (self.mrx.position, det.role[3], det.role[5:]))
+            if det.position == self.mrx.prev_position:
+                return ("MrX was caught at station %d by detective%s %s"
+                    % (self.mrx.prev_position, det.role[3], det.role[5:]))
+
+        # if all 24 rounds are complete
+        if (self.current_playing is self.mrx) and (self.mrx.moves_played == 24):
+            return "MrX won by surviving all 24 rounds"
+
+        # no detectives can play
+        if sum(self.detectives_can_play) == 0:
+            return "MrX wins since all detetctives are stuck"
+
     def move_completed(self):
+        # check can_play
+        if self.current_playing.role.startswith("det"):
+            det_index = int(self.current_playing.role[3]) - 1
+            if self.detectives_can_play[det_index]:
+                det = self.detectives[det_index]
+                if det.tokens["taxi"] == 0:
+                    if not self.stations_dict[str(det.position)]["bus"]:
+                        # no bus => no underground => stuck
+                        self.detectives_can_play[det_index] = False
+                    elif self.stations_dict[str(det.position)]["underground"]:
+                        if det.tokens["bus"] > 0  or det.tokens["underground"] > 0:
+                            self.detectives_can_play[det_index] = True
+                        else:
+                            self.detectives_can_play[det_index] = False
+                    elif det.tokens["bus"] == 0:
+                        self.detectives_can_play[det_index] = False
+
         # update current playing
         if self.current_playing.role.startswith("mrx"):
             self.current_playing = self.detectives[0]
+            if not self.detectives_can_play[0]:
+                self.move_completed()
         else:
             det_index = int(self.current_playing.role[3])
             if det_index == 5:
                 self.current_playing = self.mrx
             else:
                 self.current_playing = self.detectives[det_index]
+                if not self.detectives_can_play[det_index]:
+                    self.move_completed()
 
         # update game state
         self.update_game_state()
 
         # check completion
-        if False:
+        reason = self.game_ended()
+        if reason:
             self.end_game_for_consumers(reason)
 
     def move(self, move_dict):

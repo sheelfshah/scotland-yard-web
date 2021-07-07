@@ -24,7 +24,7 @@ class Player:
 
         if self.role.lower().startswith("det"):
             self.tokens = {
-                "taxi": 10, "bus": 8,
+                "taxi": 11, "bus": 8,
                 "underground": 4, "blackticket": 0, "double": 0
             }
         else:
@@ -73,6 +73,7 @@ class MrX(Player):
         self.moves_played = 0
         self.last_transport_used = None
         self.reveal_times = [3, 8, 13, 18, 24]
+        self.prev_position = None
 
     def to_json(self):
         ans = {}
@@ -97,8 +98,12 @@ class MrX(Player):
                 return True
         return False
 
-    def move(self, new_position, transport):
+    def move(self, new_position, transport, double=False):
         # assumes valid move
+        if double:
+            self.prev_position = self.position
+        else:
+            self.prev_position = None
         self.position = new_position
         self.tokens[transport] -= 1
         self.last_transport_used = transport
@@ -109,7 +114,7 @@ class MrX(Player):
     def move_double(self, next_p, next_to_next_p, transport1, transport2):
         # assumes valid double
         self.move(next_p, transport1)
-        self.move(next_to_next_p, transport2)
+        self.move(next_to_next_p, transport2, double=True)
         self.tokens["double"] -= 1
         self.last_transport_used = "double: " + transport1 + ", " + transport2
 

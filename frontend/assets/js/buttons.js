@@ -82,9 +82,9 @@ $("#player-stat-position").click(function(){
     goto(parseInt($(this).text()));
 });
 $("#mrx-last-seen").click(function(){
-    var last_seen = parseInt($(this).text().replace(/\D/g, ""));
+    var last_seen = ($(this).text().replace(/\D/g, "")).slice(0, -1);
     if(last_seen)
-        goto(last_seen);
+        goto(parseInt(last_seen));
 });
 
 $("#prev-stat").click(function(){

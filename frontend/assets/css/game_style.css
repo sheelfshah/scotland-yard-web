@@ -7,7 +7,17 @@
     font-family: 'gamefont';
 }
 body{
-    background-color: #2A3139;
+    background-color: orange;
+    /*background-image: url("../img/diagonal-squares.png");*/
+    background-position: 0px 0px;
+    background-repeat: repeat;
+
+    animation: animatedBackground 150s linear infinite;
+}
+
+@keyframes animatedBackground{
+    from { background-position: 0 0; }
+    to { background-position: 200px 200px; }
 }
 
 /* Maps Styling */

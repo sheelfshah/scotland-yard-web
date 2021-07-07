@@ -121,7 +121,7 @@ class GameConsumer(WebsocketConsumer):
         }))
         return
 
-    def game_end_event(reason):
+    def game_end_event(self, reason):
         self.send(text_data=json.dumps({
             'purpose': "game_end",
             'who': self.role,

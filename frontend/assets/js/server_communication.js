@@ -15,13 +15,16 @@ function play_move(move_dict) {
 }
 
 function update_game() {
-  if(game_state.num_players < 1)
+  if(game_state.num_players < 1) // change to 6
     show_waiting_lobbby();
-  else hide_waiting_lobby();
-  show_stats(game_state.current_playing);
-  show_mrx_stats();
-  if (game_state.current_playing === syg_role)
-    show_move_panel();
+  else{
+    hide_waiting_lobby();
+    scale_stuff(1);
+    show_stats(game_state.current_playing);
+    show_mrx_stats();
+    if (game_state.current_playing === syg_role)
+      show_move_panel();
+  }
   console.log("game updated");
 }
 

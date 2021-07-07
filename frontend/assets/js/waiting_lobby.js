@@ -19,20 +19,27 @@ function copy_to_clipboard(text) {
 
 pro_tips= [
   "Clicking any position will move the map to that position",
-  "You can go back to your position with the recenter button",
   "It's best to keep MrX away from the River Thames",
+
   "Press F11 for an even better experience",
+  "Press S to switch between panel configurations",
+  "Press F to toggle fullscreen of the map",
+  "You can go back to your position with the recenter button<br>\
+  Or press A",
+  "Too lazy to scroll? You can move around with arrow keys too",
+  "Pressing D will display the move panel if it's your turn",
+
   "You can type in the move area to filter moves. Take note MrX",
-  "Go to station 130 and you might just spot the Queen",
+  "Keep an eye out at station 130, you might just spot the Queen",
   "Hogwart's Express is waiting for you at station 13 3/4",
-  "Wait what? You haven't been to the London Eye yet? Bruh.",
   "What did the fish say when it hit a wall? ... Damn",
-  "Brexit means brexit",
   "A thief broke into Scotland Yard and stole all the toilets.<br>\
   Police say they have nothing to go on.",
-  "I'm bri ish and me like Arry Po er innit",
-  "Press Tab to switch between panel configurations",
+  "I fink there's no trufth in bri ish jokes mate",
   
+  "Moves will be invalid if you are out of tokens",
+  "Two detectives are not allowed to be in the same station",
+  "Beware of running out of taxis, you might get stuck"
 ]
 
 setTimeout(function() {
@@ -42,7 +49,7 @@ setTimeout(function() {
 var pro_tip_display = setInterval(function() {
   $("#waiting-tip").html(pro_tips[
     Math.floor(Math.random() * pro_tips.length)]);
-}, 30*1000);
+}, 10*1000);
 
 function show_waiting_lobbby() {
   if(!$("#waiting-lobby").is(':visible'))
