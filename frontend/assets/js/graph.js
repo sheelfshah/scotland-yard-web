@@ -160,5 +160,3 @@ function path_to_move_dict(path) {
   move_dict.next_transport = path[1][1];
   return move_dict;
 }
-
-let graph = new Graph();

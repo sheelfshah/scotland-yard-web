@@ -37,35 +37,37 @@ function goto(station){
   mapdiv.scrollTo(gotox, gotoy);
 }
 
-socket.onmessage = function(e) {
-  const data = JSON.parse(e.data);
-  if(data.purpose==="setup_client"){
-    syg_role=data.who;
-    console.log("setup done")
-    return;
-  }
-  else if(data.purpose==="move_reply"){
-    if(data.success){
-      hide_move_panel();
-      if(JSON.stringify(data.move_dict) ===
-          JSON.stringify(latest_move_dict)){
-        console.log("Move played");
-        return;
-      }
-      console.log("Wrong move played... oops");
+function socket_message(){
+  socket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    if(data.purpose==="setup_client"){
+      syg_role=data.who;
+      console.log("setup done")
       return;
     }
-    status_update("The move is invalid, try some other move", 2000);
-    return;
-  }
-  else if(data.purpose==="game_update"){
-    game_state = data.game_state;
-    update_game();
-    return;
-  }
-  else if(data.purpose==="game_end"){
-    reason = data.reason;
-    status_update(reason, 10000);
-    return;
+    else if(data.purpose==="move_reply"){
+      if(data.success){
+        hide_move_panel();
+        if(JSON.stringify(data.move_dict) ===
+            JSON.stringify(latest_move_dict)){
+          console.log("Move played");
+          return;
+        }
+        console.log("Wrong move played... oops");
+        return;
+      }
+      status_update("The move is invalid, try some other move", 2000);
+      return;
+    }
+    else if(data.purpose==="game_update"){
+      game_state = data.game_state;
+      update_game();
+      return;
+    }
+    else if(data.purpose==="game_end"){
+      reason = data.reason;
+      status_update(reason, 10000);
+      return;
+    }
   }
 }

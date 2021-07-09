@@ -1,22 +1,10 @@
 // global vars
-var syg_name = localStorage.getItem("syg_name");
-var syg_room_num = localStorage.getItem("syg_room_num");
-var syg_role = "";
-var current_stats_role = "";
-
-var latest_move_dict = {};
-var game_state={};
-
-var $mapdiv = $("#map-div");
-var $mapimg = $("#map-img");
-var $mapcanvas = $('#map-canvas');
-var $select = null;
-
-var canvas = document.getElementById("map-canvas");
-var ctx = canvas.getContext("2d");
-
-var sc = JSON.parse(station_coordinates);
-var factor = 1;
+var syg_name, syg_room_num, syg_role, current_stats_role;
+var latest_move_dict, game_state;
+var $mapdiv, $mapimg, $mapcanvas, $select;
+var canvas, ctx;
+var sc, factor;
+var socket, graph;
 
 window.onload = function() {
   $mapcanvas.css({
@@ -25,48 +13,65 @@ window.onload = function() {
   });
   canvas.height = $mapimg.height();
   canvas.width = $mapimg.width();
+
+  syg_name = localStorage.getItem("syg_name");
+  syg_room_num = localStorage.getItem("syg_room_num");
+  syg_role = "";
+  current_stats_role = "";
+  latest_move_dict = {};
+  game_state={};
+  $mapdiv = $("#map-div");
+  $mapimg = $("#map-img");
+  $mapcanvas = $('#map-canvas');
+  $select = null;
+  canvas = document.getElementById("map-canvas");
+  ctx = canvas.getContext("2d");
+  sc = JSON.parse(station_coordinates);
+  factor = 1;
+  graph = new Graph();
+
+  if((!syg_name)||(!syg_room_num)){
+    alert("Something is wrong :(; Go to " +
+      window.location.host + "/scotland_yard to reset");
+    syg_room_num=0;
+  }
+  else if(parseInt(window.location.pathname.slice(-5, -1))!=syg_room_num){
+    alert("Something is wrong :(; Go to " +
+      window.location.host + "/scotland_yard to reset");
+    syg_room_num=0;
+  }
+
+  socket = new WebSocket(
+    'ws://'
+    + window.location.host
+    + '/ws/scotland_yard/'
+    + syg_room_num + '/'
+  );
+
+  socket.addEventListener('open', function (event) {
+      console.log("Socket established");
+      socket.send(JSON.stringify({
+        'purpose': "setup_server",
+        'name': syg_name
+      }));
+  });
+  socket.addEventListener('close', function (event) {
+    console.log("Socket closed " + event.code);
+    if(event.code === 69){
+      window.onbeforeunload = function() {return;}
+      setTimeout(function() {
+        alert("GG WP");
+        window.location.href =
+          window.location.href.slice(0, -5).replace("game/", "");
+      }, 5000);
+    }
+  });
+
+  socket_message();
 };
 
 window.onbeforeunload = function() {
   return "Leaving a game midway is not good for health";
 };
-
-if((!syg_name)||(!syg_room_num)){
-  alert("Something is wrong :(; Go to " +
-    window.location.host + "/scotland_yard to reset");
-  syg_room_num=0;
-}
-else if(parseInt(window.location.pathname.slice(-5, -1))!=syg_room_num){
-  alert("Something is wrong :(; Go to " +
-    window.location.host + "/scotland_yard to reset");
-  syg_room_num=0;
-}
-
-const socket = new WebSocket(
-  'ws://'
-  + window.location.host
-  + '/ws/scotland_yard/'
-  + syg_room_num + '/'
-);
-
-socket.addEventListener('open', function (event) {
-    console.log("Socket established");
-    socket.send(JSON.stringify({
-      'purpose': "setup_server",
-      'name': syg_name
-    }));
-});
-
-socket.addEventListener('close', function (event) {
-  console.log("Socket closed " + event.code);
-  if(event.code === 69){
-    window.onbeforeunload = function() {return;}
-    setTimeout(function() {
-      alert("GG WP");
-      window.location.href =
-        window.location.href.slice(0, -5).replace("game/", "");
-    }, 5000);
-  }
-});
 
 $("#status").fadeOut(30);
