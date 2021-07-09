@@ -14,13 +14,13 @@
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
     <script>
-    if(!sessionStorage.getItem("syg_name")){
+    if(!localStorage.getItem("syg_name")){
         document.getElementById("redirect_anchor").href = 'http://' + window.location.host + '/scotland_yard/';
         document.getElementById("redirect_anchor").click();
     }
     else{
         var room_num = {{room_num}}; // int
-        sessionStorage.setItem("syg_room_num", room_num);
+        localStorage.setItem("syg_room_num", room_num);
         
         document.getElementById("redirect_anchor").href = 'http://' + window.location.host + '/scotland_yard/game/' + room_num.toString();
         document.getElementById("redirect_anchor").click();
