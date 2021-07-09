@@ -1,5 +1,3 @@
-document.addEventListener('keyup', handleKey);
-
 function handleKey(e) {
   console.log(e.code);
   if($(".selectize-control").find(".focus").length==0){

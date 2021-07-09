@@ -1,9 +1,10 @@
 /*
-click event handler of $mapcanvas
-cale_stuff(scale);
+mapcanvas_click(); //click event handler of $mapcanvas
+scale_stuff(scale);
 */
 
-$mapcanvas.click(function (e) { //Relative ( to its parent) mouse position 
+function mapcanvas_click(){
+    $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position 
         var posX_parent = $(this).parent().position().left,
             posY_parent = $(this).parent().position().top,
             posX = $(this).position().left,
@@ -26,7 +27,8 @@ $mapcanvas.click(function (e) { //Relative ( to its parent) mouse position
         /*path = graph.minimum_token_path(
             game_state[syg_role].position, station_clicked);
         console.log(path);*/
-});
+    });
+}
 
 function scale_stuff(scale) {
     if(factor*scale<=1.7 && factor*scale>=0.6){

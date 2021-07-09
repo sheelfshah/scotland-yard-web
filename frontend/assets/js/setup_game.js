@@ -7,13 +7,6 @@ var sc, factor;
 var socket, graph;
 
 window.onload = function() {
-  $mapcanvas.css({
-    top: $mapimg.position().top,
-    left: $mapimg.position().left
-  });
-  canvas.height = $mapimg.height();
-  canvas.width = $mapimg.width();
-
   syg_name = localStorage.getItem("syg_name");
   syg_room_num = localStorage.getItem("syg_room_num");
   syg_role = "";
@@ -40,6 +33,13 @@ window.onload = function() {
       window.location.host + "/scotland_yard to reset");
     syg_room_num=0;
   }
+
+  $mapcanvas.css({
+    top: $mapimg.position().top,
+    left: $mapimg.position().left
+  });
+  canvas.height = $mapimg.height();
+  canvas.width = $mapimg.width();
 
   socket = new WebSocket(
     'ws://'
@@ -68,6 +68,7 @@ window.onload = function() {
   });
 
   socket_message();
+  document.addEventListener('keyup', handleKey);
 };
 
 window.onbeforeunload = function() {
