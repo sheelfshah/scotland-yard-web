@@ -1,4 +1,4 @@
-.PHONY = help host
+.PHONY = help host deploy
 
 PYTHON = py
 
@@ -6,6 +6,11 @@ PYTHON = py
 help:
 	@echo "make host"
 	@echo "       host local django server"
+	@echo "make deploy"
+	@echo "		  deploy to heroku"
 
 host:
 	${PYTHON} backend/backendsite/manage.py runserver
+
+deploy:
+	git push heroku master
