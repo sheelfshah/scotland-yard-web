@@ -72,7 +72,7 @@ function load_stuff() {
   document.addEventListener('keyup', handleKey);
 };
 
-window.onload = function(){
+document.onload = function(){
   load_stuff();
 };
 
