@@ -6,7 +6,7 @@ var canvas, ctx;
 var sc, factor;
 var socket, graph;
 
-window.onload = function() {
+function load_stuff() {
   syg_name = localStorage.getItem("syg_name");
   syg_room_num = localStorage.getItem("syg_room_num");
   syg_role = "";
@@ -41,8 +41,9 @@ window.onload = function() {
   canvas.height = $mapimg.height();
   canvas.width = $mapimg.width();
 
+  var ws_scheme = window.location.protocol == "https:" ? "wss://" : "ws://";
   socket = new WebSocket(
-    'ws://'
+    ws_scheme
     + window.location.host
     + '/ws/scotland_yard/'
     + syg_room_num + '/'
@@ -69,6 +70,10 @@ window.onload = function() {
 
   socket_message();
   document.addEventListener('keyup', handleKey);
+};
+
+window.onload = function(){
+  load_stuff();
 };
 
 window.onbeforeunload = function() {
