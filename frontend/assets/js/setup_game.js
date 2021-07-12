@@ -7,8 +7,8 @@ var sc, factor;
 var socket, graph;
 
 function load_stuff() {
-  syg_name = localStorage.getItem("syg_name");
-  syg_room_num = localStorage.getItem("syg_room_num");
+  syg_name = window.localStorage.getItem("syg_name");
+  syg_room_num = window.localStorage.getItem("syg_room_num");
   syg_role = "";
   current_stats_role = "";
   latest_move_dict = {};
@@ -70,14 +70,13 @@ function load_stuff() {
 
   socket_message();
   document.addEventListener('keyup', handleKey);
-};
+}
 
-document.onload = function(){
+$(document).ready(function(){
   load_stuff();
-};
+});
 
 window.onbeforeunload = function() {
   return "Leaving a game midway is not good for health";
 };
-
 $("#status").fadeOut(30);

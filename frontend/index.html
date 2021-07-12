@@ -34,7 +34,7 @@
             var name = prompt("Enter an alias:", "The Rock");
             if(name){
                 var roomNum = Math.floor((Math.random() * 9000) + 1000); // random num in 1000, 10000
-                localStorage.setItem("syg_name", name);
+                window.localStorage.setItem("syg_name", name);
                 window.location = window.location.href + 'create/' + roomNum.toString();
             }
         });
@@ -54,7 +54,7 @@
             var name = prompt("Enter an alias:", "The Rock");
             var roomNum = document.querySelector('#room-join').value;
             if(name && roomNum){
-                localStorage.setItem("syg_name", name);
+                window.localStorage.setItem("syg_name", name);
                 window.location = window.location.href + 'join/' + roomNum.toString();
             }
         };

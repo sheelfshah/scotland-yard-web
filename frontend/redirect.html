@@ -15,16 +15,19 @@
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
     <script>
     window.onload = function(){
-        if(!localStorage.getItem("syg_name")){
+        if(!window.localStorage.getItem("syg_name")){
             document.getElementById("redirect_anchor").href = 'http://' + window.location.host + '/scotland_yard/';
             document.getElementById("redirect_anchor").click();
         }
         else{
             var room_num = {{room_num}}; // int
-            localStorage.setItem("syg_room_num", room_num);
+            window.localStorage.setItem("syg_room_num", room_num);
+            console.log("Local Storage set");
             
             document.getElementById("redirect_anchor").href = 'http://' + window.location.host + '/scotland_yard/game/' + room_num.toString();
-            document.getElementById("redirect_anchor").click();
+            setTimeout(function() {
+                document.getElementById("redirect_anchor").click();
+            }, 100);
         }
     };
     </script>
