@@ -84,6 +84,17 @@ function show_waiting_lobbby() {
 
 function hide_waiting_lobby(){
   clearInterval(pro_tip_display);
-  if($("#waiting-lobby").is(':visible'))
-    $("#waiting-lobby").fadeOut(600);
+  if($("#waiting-lobby").is(':visible')){
+    if(!game_has_started){
+      setTimeout(function() {$("#room-code").text("3");}, 700);
+      setTimeout(function() {$("#room-code").text("2");}, 1400);
+      setTimeout(function() {$("#room-code").text("1");}, 2100);
+      setTimeout(function() {
+        $("#waiting-lobby").fadeOut(600);
+        game_has_started = true;
+      }, 2300);
+    }
+    else
+      setTimeout(function() {$("#waiting-lobby").fadeOut(600);}, 300);
+  }
 }

@@ -15,9 +15,10 @@ function play_move(move_dict) {
 }
 
 function update_game() {
-  if(game_state.num_players < 1) // change to 6
+  if(game_state.num_players < 2) // change to 6
     show_waiting_lobbby();
   else{
+    if(!game_has_started) show_waiting_lobbby();
     hide_waiting_lobby();
     scale_stuff(1);
     show_stats(game_state.current_playing);

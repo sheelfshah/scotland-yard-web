@@ -6,6 +6,7 @@ var canvas, ctx;
 var sc, factor;
 var socket, graph;
 var vx_balls, vy_balls;
+var game_has_started=false;
 
 function load_stuff() {
   syg_name = window.localStorage.getItem("syg_name");
@@ -74,7 +75,7 @@ function load_stuff() {
         alert("GG WP");
         window.location.href =
           window.location.href.slice(0, -5).replace("game/", "");
-      }, 5000);
+      }, 10000);
     }
   });
   $mapcanvas.click(mapcanvas_click());
