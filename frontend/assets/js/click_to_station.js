@@ -31,7 +31,7 @@ function mapcanvas_click(){
 }
 
 function scale_stuff(scale) {
-    if(factor*scale<=1.7 && factor*scale>=0.6){
+    if(factor*scale<=1.7 && factor*scale>=0.75){
         $mapimg.height($mapimg.height()*scale);
         $mapimg.width($mapimg.width()*scale);
         canvas.height = $mapimg.height();

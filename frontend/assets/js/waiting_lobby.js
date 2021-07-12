@@ -21,7 +21,7 @@ pro_tips= [
   "Clicking any position will move the map to that position",
   "It's best to keep MrX away from the River Thames",
 
-  "Press F11 for an even better experience",
+  "Press F11 and go fullscreen for the best experience",
   "Press S to switch between panel configurations",
   "Press F to toggle fullscreen of the map",
   "You can go back to your position with the recenter button<br>\

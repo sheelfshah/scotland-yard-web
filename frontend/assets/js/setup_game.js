@@ -5,6 +5,7 @@ var $mapdiv, $mapimg, $mapcanvas, $select;
 var canvas, ctx;
 var sc, factor;
 var socket, graph;
+var vx_balls, vy_balls;
 
 function load_stuff() {
   syg_name = window.localStorage.getItem("syg_name");
@@ -22,6 +23,15 @@ function load_stuff() {
   sc = JSON.parse(station_coordinates);
   factor = 1;
   graph = new Graph();
+  var n=6;
+  create_balls(n);
+  vx_balls = [];
+  vy_balls = [];
+  for (var i = 0; i < n; i++) {
+    vx_balls.push(Math.random() < 0.5 ? 10 : -10);
+    vy_balls.push(Math.random() < 0.5 ? 10 : -10);
+  }
+  move_balls();
 
   if((!syg_name)||(!syg_room_num)){
     alert("Something is wrong :(; Go to " +
@@ -67,7 +77,7 @@ function load_stuff() {
       }, 5000);
     }
   });
-
+  $mapcanvas.click(mapcanvas_click());
   socket_message();
   document.addEventListener('keyup', handleKey);
 }

@@ -11,13 +11,28 @@ body{
     /*background-image: url("../img/diagonal-squares.png");*/
     background-position: 0px 0px;
     background-repeat: repeat;
-
+    overflow: hidden;
     animation: animatedBackground 150s linear infinite;
 }
-
 @keyframes animatedBackground{
     from { background-position: 0 0; }
     to { background-position: 200px 200px; }
+}
+#title{
+    position: absolute;
+    top: 0; left: 0;
+    color: #237;
+    font-size: 2vw;
+    width: 25vw;
+    height: 10vh; line-height: 10vh;
+    text-align: center;
+    z-index: 0;
+}
+.ball{
+    background: #fff;
+    height: 90px; width: 90px;
+    border-radius: 50%;
+    z-index: -1;
 }
 
 /* Maps Styling */
