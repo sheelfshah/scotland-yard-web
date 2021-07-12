@@ -24,7 +24,7 @@
             window.localStorage.setItem("syg_room_num", room_num);
             console.log("Local Storage set");
             
-            document.getElementById("redirect_anchor").href = 'http://' + window.location.host + '/scotland_yard/game/' + room_num.toString();
+            document.getElementById("redirect_anchor").href = window.location.protocol + "//" + window.location.host + '/scotland_yard/game/' + room_num.toString();
             setTimeout(function() {
                 document.getElementById("redirect_anchor").click();
             }, 100);
