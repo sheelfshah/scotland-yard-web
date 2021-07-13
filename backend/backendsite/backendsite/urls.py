@@ -20,6 +20,9 @@ from django.conf.urls import include
 from django.urls import path
 from django.contrib import admin
 
+handler404 = "scotland_yard.views.handler404"
+handler500 = "scotland_yard.views.handler404"
+
 urlpatterns = [
     path('scotland_yard/', include('scotland_yard.urls')),
     path('admin/', admin.site.urls),

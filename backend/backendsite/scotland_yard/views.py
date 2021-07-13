@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.template import RequestContext
 from django.http import HttpResponse
 from .game_rules import ScotlandYardGame
 
@@ -30,3 +31,9 @@ def room_create(request, room_num):
 
 def play_game(request, room_num):
     return render(request, 'game.html', {})
+
+def handler404(request, *args, **argsv):
+    return render(request, 'error.html', {})
+
+def handler500(request, *args, **argsv):
+    return render(request, 'error.html', {})
