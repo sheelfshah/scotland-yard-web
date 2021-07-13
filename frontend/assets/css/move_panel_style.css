@@ -51,3 +51,50 @@
 .selectize-control .option.blackticket{
     color: #8a8a8a;
 }
+
+#quick-move-panel{
+    position: absolute;
+    top: 10vh; left: 30vw;
+    width: 40vw; max-height: 50vh;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.6), 
+      rgba(70,70,70, 0.6)
+    );
+    border-radius: 20px;
+    text-align: center;
+    padding: 15px;
+}
+#quick-move-panel.hidden{
+    display: none;
+}
+#hide-quick-move{
+    width: 2vw;
+    height: 2vw;
+    position: absolute;
+    top: 10px; right: 10px;
+    cursor: pointer;
+}
+#quick-move-text{
+    color: white;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3vh;
+    font-size: 3.5vh;
+}
+#quick-move-form button{
+    cursor: pointer;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: inherit;
+    font-size: 2.9vh;
+    background: none;
+    border: none;
+    padding: 0;
+    outline: inherit;
+}
+#quick-move-form button:first-letter{
+    text-transform: uppercase;
+}

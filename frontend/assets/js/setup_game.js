@@ -69,7 +69,7 @@ function load_stuff() {
   });
   socket.addEventListener('close', function (event) {
     console.log("Socket closed " + event.code);
-    if(event.code === 69){
+    if(event.code === 3069){
       window.onbeforeunload = function() {return;}
       setTimeout(function() {
         alert("GG WP");

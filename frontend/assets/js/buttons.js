@@ -7,6 +7,7 @@ button actions of:
 #recenter
 #player-stat-position, #mrx-last-seen
 #prev-stat, #next-stat
+#hide-quick-move
 */
 
 $("#zoom-in").click(function () {
@@ -93,4 +94,8 @@ $("#prev-stat").click(function(){
 
 $("#next-stat").click(function(){
   show_stats(get_next_role("", false));
+});
+
+$("#hide-quick-move").click(function() {
+    $("#quick-move-panel").addClass("hidden");
 });

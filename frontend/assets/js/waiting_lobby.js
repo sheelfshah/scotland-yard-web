@@ -18,9 +18,13 @@ function copy_to_clipboard(text) {
 }
 
 pro_tips= [
-  "Clicking any position will move the map to that position",
+  // tips
   "It's best to keep MrX away from the River Thames",
+  "Moves will be invalid if you are out of tokens",
+  "Two detectives are not allowed to be in the same station",
+  "Beware of running out of taxis, you might get stuck"
 
+  // tricks
   "Press F11 and go fullscreen for the best experience",
   "Press S to switch between panel configurations",
   "Press F to toggle fullscreen of the map",
@@ -28,18 +32,17 @@ pro_tips= [
   Or press A",
   "Too lazy to scroll? You can move around with arrow keys too",
   "Pressing D will display the move panel if it's your turn",
-
+  "Clicking any position will move the map to that position",
+  "Use Alt+Click to quick-move to any position in one transport"
   "You can type in the move area to filter moves. Take note MrX",
+  
+  // lighter comments
   "Keep an eye out at station 130, you might just spot the Queen",
   "Hogwart's Express is waiting for you at station 13 3/4",
   "What did the fish say when it hit a wall? ... Damn",
   "A thief broke into Scotland Yard and stole all the toilets.<br>\
   Police say they have nothing to go on.",
   "I fink there's no trufth in bri ish jokes mate",
-  
-  "Moves will be invalid if you are out of tokens",
-  "Two detectives are not allowed to be in the same station",
-  "Beware of running out of taxis, you might get stuck"
 ]
 
 setTimeout(function() {

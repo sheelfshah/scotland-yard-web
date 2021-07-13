@@ -110,3 +110,52 @@ function hide_move_panel(){
   selectize.updatePlaceholder();
   $('#move-panel').addClass("hidden");
 }
+
+function quick_move(new_position){
+  if(game_state.current_playing != syg_role){
+    status_update("Not your turn to play", 2500);
+    return;
+  }
+  var is_detective = (syg_role.slice(0, 3) != "mrx");
+  let paths = graph.allroutes(
+    game_state[syg_role].position, 1, [], is_detective);
+  let my_paths = [];
+  for (var i = 0; i < paths.length; i++) {
+    if(paths[i][0][0] == new_position)
+      my_paths.push(paths[i]);
+  }
+
+  if(my_paths.length === 0){
+    status_update("Can't quick-move to " + new_position, 4000);
+    return;
+  }
+  if(my_paths.length === 1){
+    var path_move_dict = path_to_move_dict(my_paths[0]);
+    play_move(path_move_dict);
+    return;
+  }
+  var $form = $("#quick-move-form");
+  $form.html("");
+  for (var i = 0; i < my_paths.length; i++) {
+    var path_move_dict = path_to_move_dict(my_paths[i]);
+    var $button = $("<button name='transport' type='submit' value='" + 
+      JSON.stringify(path_move_dict) + "'>" + my_paths[i][0][1] + "</button>"
+      );
+    if(my_paths[i][0][1] == "taxi")
+      $button.css("color", "#f6e64e");
+    else if(my_paths[i][0][1] == "bus")
+      $button.css("color", "#2EA49B");
+    else if(my_paths[i][0][1] == "underground")
+      $button.css("color", "#F24736");
+    else if(my_paths[i][0][1] == "blackticket")
+      $button.css("color", "#000");
+    $button.click(function(event) {
+      play_move(JSON.parse($(this).val()));
+      $("#quick-move-panel").addClass("hidden");
+      event.preventDefault();
+    });
+    $form.append($button);
+  }
+  $("#quick-move-text").text("Move to " + new_position + " via?");
+  $("#quick-move-panel").removeClass("hidden");
+}

@@ -22,6 +22,10 @@ function mapcanvas_click(){
             }
         }
         if(station_clicked<=0) return;
+        if(e.altKey){
+            quick_move(station_clicked);
+            return;
+        }
         goto(station_clicked);
         
         /*path = graph.minimum_token_path(
