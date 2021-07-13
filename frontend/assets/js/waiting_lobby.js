@@ -22,7 +22,7 @@ pro_tips= [
   "It's best to keep MrX away from the River Thames",
   "Moves will be invalid if you are out of tokens",
   "Two detectives are not allowed to be in the same station",
-  "Beware of running out of taxis, you might get stuck"
+  "Beware of running out of taxis, you might get stuck",
 
   // tricks
   "Press F11 and go fullscreen for the best experience",
@@ -33,7 +33,7 @@ pro_tips= [
   "Too lazy to scroll? You can move around with arrow keys too",
   "Pressing D will display the move panel if it's your turn",
   "Clicking any position will move the map to that position",
-  "Use Alt+Click to quick-move to any position in one transport"
+  "Use Alt+Click to quick-move to any position in one transport",
   "You can type in the move area to filter moves. Take note MrX",
   
   // lighter comments

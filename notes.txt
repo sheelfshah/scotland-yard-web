@@ -1,9 +1,8 @@
 venv name: venv_scot
-run redis: docker run -p 6379:6379 -d redis:5 
-run server: python3 manage.py runserver 0.0.0.0:8000
+run server: make host
+website url: not-scotland-yard.herokuapp.com/scotland_yard
 
 todo:
-    game ending
-    keyboard shortcuts
-    features
+    number yt streams
+    minimize assets
     testing

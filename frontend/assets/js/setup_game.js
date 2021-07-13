@@ -78,6 +78,7 @@ function load_stuff() {
       }, 10000);
     }
   });
+  $("#toggle-fullscreen").click();
   $mapcanvas.click(mapcanvas_click());
   socket_message();
   document.addEventListener('keyup', handleKey);
