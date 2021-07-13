@@ -8,11 +8,12 @@
 }
 body{
     background-color: orange;
-    /*background-image: url("../img/diagonal-squares.png");*/
+    /*background-image: url("../img/diagonal-squares.png");
     background-position: 0px 0px;
     background-repeat: repeat;
-    overflow: hidden;
     animation: animatedBackground 150s linear infinite;
+    */
+    overflow: hidden;
 }
 @keyframes animatedBackground{
     from { background-position: 0 0; }

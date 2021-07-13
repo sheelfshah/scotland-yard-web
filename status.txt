@@ -1,5 +1,0 @@
-game implemented
-
-todo:
-    add asgi to_fro
-    build frontend
