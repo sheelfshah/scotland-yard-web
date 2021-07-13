@@ -25,7 +25,8 @@ body{
     color: #237;
     font-size: 2vw;
     width: 25vw;
-    height: 10vh; line-height: 10vh;
+    height: calc(var(--vh, 1vh)*10);
+    line-height: calc(var(--vh, 1vh)*10);
     text-align: center;
     z-index: 0;
 }
@@ -41,6 +42,7 @@ body{
     position: absolute;
     width: 75vw; right: 0vw;
     height: 90vh; bottom: 0vh;
+    height: calc(var(--vh, 1vh)*90);
     overflow: scroll;
     scroll-behavior: smooth;
 }
@@ -98,7 +100,7 @@ body{
 #player-stats{
     position: absolute;
     width:  25vw; left: 0vw;
-    max-height: 26vw; bottom: 0vh;
+    max-height: calc((var(--vh, 1vh)*40)); bottom: 0vh;
     z-index:  2;
 }
 
@@ -120,7 +122,7 @@ body{
       rgba(0, 0, 0, 0.6), 
       rgba(20, 20, 20, 0.7)
     );
-    max-height: 24vw; min-height: 10vw;
+    max-height: calc((var(--vh, 1vh)*38)); min-height: calc((var(--vh, 1vh)*15));
     overflow: auto;
 }
 #player-stat-heading{
@@ -151,19 +153,27 @@ body{
     max-width: 19vw;
     margin-bottom: 1vh;
     text-align: center;
-    font-size: 1.5vw;
+    font-size: 3.2vh;
 }
 #player-stat-position{
     margin-top:  0;
     margin-bottom:  1.6vh;
     text-align: center;
-    font-size: 2.2vw;
+    font-size: 4.2vh;
     color: white;
     cursor: pointer;
 }
+#player-stat-tokens table{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 #player-stat-tokens td{
     text-align: center;
-    font-size: 1.5vw;
+    font-size: 2.9vh;
+}
+#player-stat-tokens td:nth-child(odd){
+    padding-right: 20px;
 }
 /* ..........................  */
 
@@ -171,7 +181,7 @@ body{
 #mrx-stats{
     position: absolute;
     width:  25vw; left: 0vw;
-    max-height: calc(100vh - 35vw); bottom: 28vw;
+    max-height: calc((var(--vh, 1vh)*40)); bottom: calc((var(--vh, 1vh)*55));
     z-index:  2;
 }
 

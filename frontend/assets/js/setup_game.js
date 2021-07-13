@@ -9,6 +9,13 @@ var vx_balls, vy_balls;
 var game_has_started=false;
 
 function load_stuff() {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+  window.addEventListener('resize', () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  });
+
   syg_name = window.localStorage.getItem("syg_name");
   syg_room_num = window.localStorage.getItem("syg_room_num");
   syg_role = "";
