@@ -4,11 +4,12 @@ var latest_move_dict, game_state;
 var $mapdiv, $mapimg, $mapcanvas, $select;
 var canvas, ctx;
 var sc, factor;
-var socket, graph;
+var socket;
 var vx_balls, vy_balls;
 var game_has_started=false;
 
 function load_stuff() {
+  alert("The game is full, and you are a spectator");
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
   window.addEventListener('resize', () => {
@@ -30,7 +31,6 @@ function load_stuff() {
   ctx = canvas.getContext("2d");
   sc = JSON.parse(station_coordinates);
   factor = 1;
-  graph = new Graph();
   var n=6;
   create_balls(n);
   vx_balls = [];
@@ -63,7 +63,7 @@ function load_stuff() {
   socket = new WebSocket(
     ws_scheme
     + window.location.host
-    + '/ws/scotland_yard/game/'
+    + '/ws/scotland_yard/spectate/'
     + syg_room_num + '/'
   );
 
@@ -81,7 +81,7 @@ function load_stuff() {
       setTimeout(function() {
         alert("GG WP");
         window.location.href =
-          window.location.href.slice(0, -5).replace("game/", "");
+          window.location.href.slice(0, -5).replace("spectate/", "");
       }, 10000);
     }
   });
@@ -95,7 +95,4 @@ $(document).ready(function(){
   load_stuff();
 });
 
-window.onbeforeunload = function() {
-  return "Leaving a game midway is not good for health";
-};
 $("#status").fadeOut(30);

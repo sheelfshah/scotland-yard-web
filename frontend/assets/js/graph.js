@@ -6,7 +6,9 @@ Graph class:
   get_station(id)
   minimum_token_path(from, true)
   allroutes(from, length, current_path = [], is_detective=true)
+path_to_move_dict(path);
 move_balls();
+create_balls();
 */
 
 function dcopy(x) {

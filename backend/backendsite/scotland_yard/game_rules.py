@@ -13,6 +13,7 @@ class ScotlandYardGame:
         self.available_roles = [
             "mrx0", "det1", "det2",
             "det3",  "det4",  "det5"]
+        random.shuffle(self.available_roles)
         self.total_roles = len(self.available_roles)
         with open(backendsite_dir / "assets/utilities.min.json") as f:
             utilities = json.load(f)
@@ -59,7 +60,7 @@ class ScotlandYardGame:
     def add_consumer(self, consumer):
         self.consumers.append(consumer)
 
-    def remove_consumers(self, consumer_id):
+    def remove_consumer(self, consumer_id):
         for i, consumer in enumerate(self.consumers):
             if consumer.consumer_id == consumer_id:
                 del self.consumers[i]
