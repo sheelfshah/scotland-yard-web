@@ -32,24 +32,24 @@
     line-height: 1.7vw;
 }
 /*
-"taxi": "#f6e64e", "bus": "#2EA49B",
-    "underground": "#F24736", "double": "#22dd22",
-    "blackticket": "#000000"
-    */
+"taxi": "#ff2", "bus": "#22B49B",
+"underground": "#f22", "double": "#2f2",
+"blackticket": "#000"
+*/
 .selectize-control .option.taxi{
-    color: #f6e64e;
+    color: #ff2;
 }
 .selectize-control .option.bus{
-    color: #2EA49B;
+    color: #22B49B;
 }
 .selectize-control .option.underground{
-    color: #F24736;
+    color: #f22;
 }
 .selectize-control .option.double{
-    color: #22dd22;
+    color: #2f2;
 }
 .selectize-control .option.blackticket{
-    color: #8a8a8a;
+    color: #888;
 }
 
 #quick-move-panel{

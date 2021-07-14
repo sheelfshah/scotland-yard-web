@@ -53,9 +53,9 @@ function show_stats(role){
   var table = document.createElement("table");
   var tokens = game_state[role].tokens;
   var token_color={
-    "taxi": "#f6e64e", "bus": "#2EA49B",
-    "underground": "#F24736", "double": "#22dd22",
-    "blackticket": "#000000"
+    "taxi": "#ff2", "bus": "#22B49B",
+    "underground": "#f22", "double": "#2f2",
+    "blackticket": "#000"
   }
   for (var key in tokens) {
     if(tokens[key]>0){ // don't show tokens one doesn't have

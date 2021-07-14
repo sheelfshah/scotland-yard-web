@@ -1,8 +1,0 @@
-venv name: venv_scot
-run server: make host
-website url: not-scotland-yard.herokuapp.com/scotland_yard
-
-todo:
-    minimize map
-    vh for mobile
-    testing

@@ -153,11 +153,11 @@ function quick_move(new_position){
       JSON.stringify(path_move_dict) + "'>" + my_paths[i][0][1] + "</button>"
       );
     if(my_paths[i][0][1] == "taxi")
-      $button.css("color", "#f6e64e");
+      $button.css("color", "#ff2");
     else if(my_paths[i][0][1] == "bus")
-      $button.css("color", "#2EA49B");
+      $button.css("color", "#22B49B");
     else if(my_paths[i][0][1] == "underground")
-      $button.css("color", "#F24736");
+      $button.css("color", "#f22");
     else if(my_paths[i][0][1] == "blackticket")
       $button.css("color", "#000");
     $button.click(function(event) {

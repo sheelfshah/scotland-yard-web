@@ -6,9 +6,9 @@ import json
 def get_color(role):
     start = role[:4]
     role_color = {
-        "mrx0": "#e5e5e5", "det1": "#ff6b5d",
-        "det2": "#60cc8f", "det3": "#c485d6",
-        "det4": "#ff00ff", "det5": "#4380cc"
+        "mrx0": "#8ff", "det1": "#ff6b5d",
+        "det2": "#5e7", "det3": "#c485e6",
+        "det4": "#f2f", "det5": "#48e"
     }
     return role_color[start]
 

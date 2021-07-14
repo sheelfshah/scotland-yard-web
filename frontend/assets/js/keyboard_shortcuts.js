@@ -1,5 +1,5 @@
 function handleKey(e) {
-  console.log(e.code);
+  // console.log(e.code);
   if($(".selectize-control").find(".focus").length==0){
     if(e.code == "KeyA"){
       $("#recenter").click();

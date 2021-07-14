@@ -26,7 +26,7 @@ project_dir = BASE_DIR.parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5_vud#b8m-j)r@3429d5_8^6%vgra=)kpv&5#&x1m4t!ns6@fx_falu7sheel'
+SECRET_KEY = os.getenv('SECRET_KEY', 'asdfghjkl')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False

@@ -23,6 +23,7 @@ pro_tips= [
   "Moves will be invalid if you are out of tokens",
   "Two detectives are not allowed to be in the same station",
   "Beware of running out of taxis, you might get stuck",
+  "There's no going back after you have played a move",
 
   // tricks
   "Press F11 and go fullscreen for the best experience",
