@@ -10,6 +10,8 @@
 <body>
     <h1>You should be redirected in a while</h1>
     <a id="redirect_anchor">Force redirect</a>
+    <h2>While we're at it, subscribe to PewDiePie</h2>
+    <h3>And also maybe star the repository on github</h3>
 
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
@@ -27,7 +29,7 @@
             document.getElementById("redirect_anchor").href = window.location.protocol + "//" + window.location.host + '/scotland_yard/game/' + room_num.toString();
             setTimeout(function() {
                 document.getElementById("redirect_anchor").click();
-            }, 100);
+            }, 1000);
         }
     };
     </script>
