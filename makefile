@@ -10,7 +10,7 @@ help:
 	@echo "		  deploy to heroku"
 
 host:
-	cd backend/backendsite && ${PYTHON} manage.py collectstatic && cd ../..
+	cd backend/backendsite && ${PYTHON} manage.py collectstatic --noinput && cd ../..
 	${PYTHON} backend/backendsite/manage.py runserver
 
 deploy:
