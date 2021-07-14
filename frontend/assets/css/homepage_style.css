@@ -2,7 +2,7 @@
   font-family: 'gamefont';
   src: url('../Supercell-Magic_5.ttf');
 }
-*{
+*, input{
     font-family: 'gamefont';
 }
 

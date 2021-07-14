@@ -25,7 +25,7 @@
         </div>
     </div>
     
-    <input id="room-join" class="input-text hidden" type="number" size="100"><br>
+    <input id="room-join" class="input-text hidden" type="number" size="100" placeholder="Room Code"><br>
     <input id="room-join-submit" class="input-submit hidden" type="button" value="Join Room">
 
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
@@ -42,6 +42,7 @@
         $("#join-room").click(function(){
             if($("#room-join-submit").hasClass("hidden")){
                 $("#room-join").toggleClass("hidden");
+                $("#room-join").focus();
                 $("#room-join-submit").toggleClass("hidden");
             }
         });
